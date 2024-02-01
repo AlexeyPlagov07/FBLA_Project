@@ -391,20 +391,23 @@ def data_window():
     # button to change role of selected user #
     role_change1 = tk.Button(user_window, text="Change Role", command=lambda: [role_change(),user_list_update()])
     role_change1.place(relx=0.2, rely=0.8, anchor=tk.CENTER)
+    role_change_tip = ToolTip(role_change1, msg="Changes the role \n of selected user", delay = 1.5)
 
 
     # button to remove user #
     remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user12(), user_list_update()])
     remove_user_b1.place(relx=0.4, rely=0.8, anchor=tk.CENTER)
+    remove_user_tip = ToolTip(remove_user_b1, msg="Removes user \n from system", delay = 1.5)
 
     # button to accept user #
     accept_user_b1 = tk.Button(user_window, text="Accept User", command=lambda: [user_accept(), update_pending_list(), user_list_update()])
     accept_user_b1.place(relx=0.6, rely=0.8, anchor=tk.CENTER)
-
+    accept_user_tip = ToolTip(accept_user_b1, msg="Accpets user from \n request list", delay = 1.5)
     # button to deny user #
     deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user1(), update_pending_list()])
     deny_user_b1.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
-  
+    deny_user_tip = ToolTip(deny_user_b1, msg="Denies user from \n request list", delay = 1.5)
+
   
   
   # updates the listbox of partners #
@@ -489,7 +492,7 @@ def data_window():
     # partner submit button that closes the window, adds the partner, and updates the listbox #
     new_p_submit = tk.Button(add_window, text="Add Partner", command = lambda: [add_partner(),add_window.withdraw(), update_listbox()])
     new_p_submit.place(relx=0.5, rely=0.7, anchor=S)
-
+    new_p_submit_tip = ToolTip(new_p_submit, msg="Adds new partner \n to the list", delay = 1.5)
 
 
   # delets partner from listbox #
@@ -526,7 +529,7 @@ def data_window():
     # button deletes the entered partner, closes window, and updates the listbox #
     p_del_button = tk.Button(delete_window, text="Delete Partner", command =lambda:[delete_partner(), delete_window.withdraw(),update_listbox()])
     p_del_button.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
-
+    p_del_button_tip = ToolTip(p_del_button, msg="Removes partner \n from list", delay = 1.5)
   # applies the filter on the data whether it is product or service relation #
   def apply_ps_filter():
     temp_filter_list = []
