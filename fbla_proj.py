@@ -481,7 +481,7 @@ def data_window():
       new_p_ps.set("")
       new_p_relation.set("")
       new_p_contact.set("")
-
+      # shows success message #
       messagebox.showinfo("Success!", "Your New Partner Has Been Saved!")
     else:
       messagebox.showerror("Error", "Partner Already In System!")
