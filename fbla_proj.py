@@ -608,25 +608,31 @@ def data_window():
 
     # sees whether the checkbox is selected for filtering and appends the filter to a list #
     for i in filter_purpose_list:
-
+      # sees which buttons are selected in the filter dropdown #
       if (filter_purpose_dict[i]).get() == 'True':
         temp_filter_list.append(i)
+    
+    # runs query that selects all partners with the filters applied #
     filter_query = """
                    SELECT * 
                    FROM FBLA_PROJECT.dbo.partners 
                    WHERE available_resource = (?)
                    """
+    
+    # runs query based on all of the filters appended to a list #
     for i in temp_filter_list:
       cursor.execute(filter_query, (str(i),))
       temp_filter_result.append(cursor.fetchall())
+    
+    # updates listbox based on filtered output #
     listbox.delete(0,tk.END)
     for i in temp_filter_result:
       for j in i:
         if j != []:
-
           h = list(j)
           filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4])
           final_list.append(filter_listbox_result)
+    # returns all of the partners that are refernced by the filter in a list #
     return final_list
 
 
