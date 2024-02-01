@@ -237,12 +237,16 @@ def data_window():
   def view_users():
 
 
-    # defines a function that changes the users role #
     
+    # defines a function that lets admin select users from pending list #
     def user_accept():
       selected_users = []
+      
+      # appends all selected users from the pending list into user list #
       for i in user_listbox2.curselection():
         selected_users.append(user_listbox2.get(i).split())
+      
+      # selects the password from users in pending list to append to user database #
       for i in selected_users:
         user_pass_recovery_query = """
                                    SELECT pword
@@ -251,23 +255,32 @@ def data_window():
                                    """
         cursor.execute(user_pass_recovery_query, (i[0],))
         user_temp_pass_recover = list(cursor.fetchone())
+        
+        # removes the accepted user from the pending database #
         accept_user_remove_query = """
                                    DELETE FROM FBLA_PROJECT.dbo.pending_users
                                    WHERE Username = (?)
                                    """
         cursor.execute(accept_user_remove_query, (i[0],))
         cursor.commit()
+        
+        # adds the new user to the user database #
         accept_user_add_query = """
                                 INSERT INTO users
                                 VALUES (?,?,?)
-                                """
-        
+                                """     
         cursor.execute(accept_user_add_query, (i[0],user_temp_pass_recover[0], "user"))
         cursor.commit()
+    
+    # defines a function that changes the users role #
     def role_change():
       selected_users = []
+      
+      # appends all selected users to a list #
       for i in user_listbox1.curselection():
         selected_users.append((user_listbox1.get(i)).split())
+      
+      # loops through every selected user #
       for i in selected_users:
 
         # changes role from 'admin' to 'user' #
@@ -277,9 +290,6 @@ def data_window():
                               SET role1='user' 
                               WHERE Username = (?)
                               """
-
-
-
           cursor.execute(admin_role_change, (i[0],))
           conn.commit()
 
@@ -292,27 +302,42 @@ def data_window():
                              """
           cursor.execute(user_role_change, (i[0],))
           conn.commit()
-
-    def remove_user12():
+    
+    
+    # defines a function that removes 
+    def remove_user_func():
       selected_users = []
+      
+      # appends all selected users to a list #
       for i in user_listbox1.curselection():
         selected_users.append((user_listbox1.get(i)).split())
+      
+      # SQL statement that removes user from the users database #
       delete_query = """
                      DELETE FROM FBLA_PROJECT.dbo.users 
                      WHERE Username = (?)
                      """
+      # runs the query for all selected users #
       for i in selected_users:
         i = i[0]
         cursor.execute(delete_query, ((i),))
         cursor.commit()
-    def deny_user1():
+    
+    # defines a function that denies a user in the pending box #
+    def deny_user_func():
       selected_users = []
+      
+      #appends all selected users to a list #
       for i in user_listbox2.curselection():
         selected_users.append((user_listbox2.get(i)).split())
+      
+      # query removes selected user from pending list database #
       delete_query = """
                      DELETE FROM FBLA_PROJECT.dbo.pending_users 
                      WHERE Username = (?)
                      """
+      
+      # runs the query for all selected users in the list #
       for i in selected_users:
         i = i[0]
         cursor.execute(delete_query, ((i),))
@@ -329,23 +354,24 @@ def data_window():
                      FROM FBLA_PROJECT.dbo.users 
                      WHERE role1='admin'
                      """)
-
-
       user1_result = list(cursor.fetchall())
       cursor.execute("""
                      SELECT * 
                      FROM FBLA_PROJECT.dbo.users 
                      WHERE role1='user'
                      """)
-
-      # recieves and appends the updated list of users to tkinter listbox #
       user2_result = list(cursor.fetchall())
       user3_result = user1_result + user2_result
+      
+      # recieves and appends the updated list of users to tkinter listbox #
       for i in range(len(user3_result)):
         j = (list(user3_result))[i]
         user_info = (j[0] + " | " + j[2])
         user_listbox1.insert(tk.END, user_info)
+    
+    # defines a functiont that updates the listbox for the pending users #
     def update_pending_list():
+      
       # clears listbox #
       user_listbox2.delete(0, tk.END)
 
@@ -355,7 +381,6 @@ def data_window():
                      FROM FBLA_PROJECT.dbo.pending_users
                      """)
 
-
       user1_result = list(cursor.fetchall())
 
       # recieves and appends the updated list of users to tkinter listbox #    
@@ -363,6 +388,8 @@ def data_window():
         j = (list(user1_result))[i]
         user_info = (j[0] + " | " + j[2])
         user_listbox2.insert(tk.END, user_info)
+    
+    
     # Defines the 'users' window #
     user_window = tk.Toplevel()
     user_window.title("Users")
@@ -370,13 +397,14 @@ def data_window():
     user_window.configure(bg='powderblue')
     u_r_label = tk.Label(user_window, text="User |  Role", bg='powderblue')
     u_r_label.place(relx=0.25, rely=0.1, anchor=tk.CENTER)
+    # users listbox #
     user_scrollbar1 = tk.Scrollbar(user_window)
     user_listbox1 = tk.Listbox(user_window, width=30, height=10, selectmode=tk.MULTIPLE)
     user_scrollbar1.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
     user_listbox1.place(relx=0.3, rely=0.4, anchor=tk.CENTER)
     user_listbox1.config(yscrollcommand = scrollbar.set)
     user_scrollbar1.config(command = listbox.yview)
-    
+    # pending listbox #
     user_scrollbar2 = tk.Scrollbar(user_window)
     user_listbox2 = tk.Listbox(user_window, width=30, height=10, selectmode=tk.MULTIPLE)
     user_scrollbar1.place(relx=0.7, rely=0.5, anchor=tk.CENTER)
@@ -395,7 +423,7 @@ def data_window():
 
 
     # button to remove user #
-    remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user12(), user_list_update()])
+    remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user_func(), user_list_update()])
     remove_user_b1.place(relx=0.4, rely=0.8, anchor=tk.CENTER)
     remove_user_tip = ToolTip(remove_user_b1, msg="Removes user \n from system", delay = 1.5)
 
@@ -404,7 +432,7 @@ def data_window():
     accept_user_b1.place(relx=0.6, rely=0.8, anchor=tk.CENTER)
     accept_user_tip = ToolTip(accept_user_b1, msg="Accpets user from \n request list", delay = 1.5)
     # button to deny user #
-    deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user1(), update_pending_list()])
+    deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user_func(), update_pending_list()])
     deny_user_b1.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
     deny_user_tip = ToolTip(deny_user_b1, msg="Denies user from \n request list", delay = 1.5)
 
