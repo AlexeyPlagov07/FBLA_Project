@@ -237,12 +237,16 @@ def data_window():
   def view_users():
 
 
-    # defines a function that changes the users role #
     
+    # defines a function that lets admin select users from pending list #
     def user_accept():
       selected_users = []
+      
+      # appends all selected users from the pending list into user list #
       for i in user_listbox2.curselection():
         selected_users.append(user_listbox2.get(i).split())
+      
+      # selects the password from users in pending list to append to user database #
       for i in selected_users:
         user_pass_recovery_query = """
                                    SELECT pword
@@ -251,23 +255,32 @@ def data_window():
                                    """
         cursor.execute(user_pass_recovery_query, (i[0],))
         user_temp_pass_recover = list(cursor.fetchone())
+        
+        # removes the accepted user from the pending database #
         accept_user_remove_query = """
                                    DELETE FROM FBLA_PROJECT.dbo.pending_users
                                    WHERE Username = (?)
                                    """
         cursor.execute(accept_user_remove_query, (i[0],))
         cursor.commit()
+        
+        # adds the new user to the user database #
         accept_user_add_query = """
                                 INSERT INTO users
                                 VALUES (?,?,?)
-                                """
-        
+                                """     
         cursor.execute(accept_user_add_query, (i[0],user_temp_pass_recover[0], "user"))
         cursor.commit()
+    
+    # defines a function that changes the users role #
     def role_change():
       selected_users = []
+      
+      # appends all selected users to a list #
       for i in user_listbox1.curselection():
         selected_users.append((user_listbox1.get(i)).split())
+      
+      # loops through every selected user #
       for i in selected_users:
 
         # changes role from 'admin' to 'user' #
@@ -277,9 +290,6 @@ def data_window():
                               SET role1='user' 
                               WHERE Username = (?)
                               """
-
-
-
           cursor.execute(admin_role_change, (i[0],))
           conn.commit()
 
@@ -292,27 +302,42 @@ def data_window():
                              """
           cursor.execute(user_role_change, (i[0],))
           conn.commit()
-
-    def remove_user12():
+    
+    
+    # defines a function that removes 
+    def remove_user_func():
       selected_users = []
+      
+      # appends all selected users to a list #
       for i in user_listbox1.curselection():
         selected_users.append((user_listbox1.get(i)).split())
+      
+      # SQL statement that removes user from the users database #
       delete_query = """
                      DELETE FROM FBLA_PROJECT.dbo.users 
                      WHERE Username = (?)
                      """
+      # runs the query for all selected users #
       for i in selected_users:
         i = i[0]
         cursor.execute(delete_query, ((i),))
         cursor.commit()
-    def deny_user1():
+    
+    # defines a function that denies a user in the pending box #
+    def deny_user_func():
       selected_users = []
+      
+      #appends all selected users to a list #
       for i in user_listbox2.curselection():
         selected_users.append((user_listbox2.get(i)).split())
+      
+      # query removes selected user from pending list database #
       delete_query = """
                      DELETE FROM FBLA_PROJECT.dbo.pending_users 
                      WHERE Username = (?)
                      """
+      
+      # runs the query for all selected users in the list #
       for i in selected_users:
         i = i[0]
         cursor.execute(delete_query, ((i),))
@@ -329,23 +354,24 @@ def data_window():
                      FROM FBLA_PROJECT.dbo.users 
                      WHERE role1='admin'
                      """)
-
-
       user1_result = list(cursor.fetchall())
       cursor.execute("""
                      SELECT * 
                      FROM FBLA_PROJECT.dbo.users 
                      WHERE role1='user'
                      """)
-
-      # recieves and appends the updated list of users to tkinter listbox #
       user2_result = list(cursor.fetchall())
       user3_result = user1_result + user2_result
+      
+      # recieves and appends the updated list of users to tkinter listbox #
       for i in range(len(user3_result)):
         j = (list(user3_result))[i]
         user_info = (j[0] + " | " + j[2])
         user_listbox1.insert(tk.END, user_info)
+    
+    # defines a functiont that updates the listbox for the pending users #
     def update_pending_list():
+      
       # clears listbox #
       user_listbox2.delete(0, tk.END)
 
@@ -355,7 +381,6 @@ def data_window():
                      FROM FBLA_PROJECT.dbo.pending_users
                      """)
 
-
       user1_result = list(cursor.fetchall())
 
       # recieves and appends the updated list of users to tkinter listbox #    
@@ -363,6 +388,8 @@ def data_window():
         j = (list(user1_result))[i]
         user_info = (j[0] + " | " + j[2])
         user_listbox2.insert(tk.END, user_info)
+    
+    
     # Defines the 'users' window #
     user_window = tk.Toplevel()
     user_window.title("Users")
@@ -370,13 +397,14 @@ def data_window():
     user_window.configure(bg='powderblue')
     u_r_label = tk.Label(user_window, text="User |  Role", bg='powderblue')
     u_r_label.place(relx=0.25, rely=0.1, anchor=tk.CENTER)
+    # users listbox #
     user_scrollbar1 = tk.Scrollbar(user_window)
     user_listbox1 = tk.Listbox(user_window, width=30, height=10, selectmode=tk.MULTIPLE)
     user_scrollbar1.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
     user_listbox1.place(relx=0.3, rely=0.4, anchor=tk.CENTER)
     user_listbox1.config(yscrollcommand = scrollbar.set)
     user_scrollbar1.config(command = listbox.yview)
-    
+    # pending listbox #
     user_scrollbar2 = tk.Scrollbar(user_window)
     user_listbox2 = tk.Listbox(user_window, width=30, height=10, selectmode=tk.MULTIPLE)
     user_scrollbar1.place(relx=0.7, rely=0.5, anchor=tk.CENTER)
@@ -395,7 +423,7 @@ def data_window():
 
 
     # button to remove user #
-    remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user12(), user_list_update()])
+    remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user_func(), user_list_update()])
     remove_user_b1.place(relx=0.4, rely=0.8, anchor=tk.CENTER)
     remove_user_tip = ToolTip(remove_user_b1, msg="Removes user \n from system", delay = 1.5)
 
@@ -404,7 +432,7 @@ def data_window():
     accept_user_b1.place(relx=0.6, rely=0.8, anchor=tk.CENTER)
     accept_user_tip = ToolTip(accept_user_b1, msg="Accpets user from \n request list", delay = 1.5)
     # button to deny user #
-    deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user1(), update_pending_list()])
+    deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user_func(), update_pending_list()])
     deny_user_b1.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
     deny_user_tip = ToolTip(deny_user_b1, msg="Denies user from \n request list", delay = 1.5)
 
@@ -453,7 +481,7 @@ def data_window():
       new_p_ps.set("")
       new_p_relation.set("")
       new_p_contact.set("")
-
+      # shows success message #
       messagebox.showinfo("Success!", "Your New Partner Has Been Saved!")
     else:
       messagebox.showerror("Error", "Partner Already In System!")
@@ -580,46 +608,55 @@ def data_window():
 
     # sees whether the checkbox is selected for filtering and appends the filter to a list #
     for i in filter_purpose_list:
-
+      # sees which buttons are selected in the filter dropdown #
       if (filter_purpose_dict[i]).get() == 'True':
         temp_filter_list.append(i)
+    
+    # runs query that selects all partners with the filters applied #
     filter_query = """
                    SELECT * 
                    FROM FBLA_PROJECT.dbo.partners 
                    WHERE available_resource = (?)
                    """
+    
+    # runs query based on all of the filters appended to a list #
     for i in temp_filter_list:
       cursor.execute(filter_query, (str(i),))
       temp_filter_result.append(cursor.fetchall())
+    
+    # updates listbox based on filtered output #
     listbox.delete(0,tk.END)
     for i in temp_filter_result:
       for j in i:
         if j != []:
-
           h = list(j)
           filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4])
           final_list.append(filter_listbox_result)
+    # returns all of the partners that are refernced by the filter in a list #
     return final_list
 
 
-
+  # combines the two filter sets to compare and see which partners are in both lists #
   def combine_filter():
 
-
+    # If there are partners in both filter lists, then they form into one #
+    # only keeping the partners that are in both lists #
     if apply_ps_filter() != [] and apply_purpose_filter() != []:
         full_list = set(apply_ps_filter()) & set(apply_purpose_filter())
         listbox.delete(0, tk.END)
         for i in full_list:
           listbox.insert(tk.END, i)
 
-
+    # If the purpose filter list is empty, final list is set to the partners #
+    # in the product/service filter list #
     elif apply_ps_filter() != [] and apply_purpose_filter() == []:
       full_list = apply_ps_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
 
-
+    # If the product/service filter list is empty, final list is set to the partners #
+    # in the purpose filter list #
     elif apply_purpose_filter() != [] and apply_ps_filter() == []:
       full_list = apply_purpose_filter()
       listbox.delete(0, tk.END)
@@ -628,6 +665,8 @@ def data_window():
     else:
       listbox.delete(0, tk.END)
 
+
+  # function is used to clear the filter checkboxes when the 'clear filter' button is used #
   def clear_checkbox():
     product_var.set("False")
     service_var.set("False")
@@ -635,6 +674,8 @@ def data_window():
     financial_var.set("False")
     info_var.set("False")
   try:
+    
+    # Gets the password from username in database and compares the result to the password given by user #
     query = ("""
              SELECT * 
              FROM FBLA_PROJECT.dbo.users 
@@ -647,65 +688,89 @@ def data_window():
 
 
 
-
+      # withdraws login window and sets the geometry for the data window #
       main.withdraw()
       data_window = tk.Toplevel()
       data_window.title("Main Page")
       data_window.geometry("500x500")
       data_window.configure(bg="steelblue")
-      #Menu Bar
+      
+      # Menu Bar #
       menu_bar = tk.Menu(data_window)
       menu_1 = tk.Menu(menu_bar, tearoff=0)
       menu_2 = tk.Menu(menu_bar, tearoff=0)
 
-
+      # If the user is an admin, an extra menu bar item named 'admin' is added with admin abilites #
       if str(user_perm.get()) == "admin":
+        
+        # sets the cascade onto the menu bar #
         menu_3 = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Admin", menu=menu_3)
+        
+        # runs function that lets you add partners #
         menu_3.add_command(label="Add Item", command=lambda:[add_window()])
+        
+        # runs function that lets you remove partners #
         menu_3.add_command(label="Remove Item", command=lambda:[delete_window()])
+        
+        # lets you view all users and pending users #
         menu_3.add_command(label="All Users", command=view_users)
 
+        # configures cascade to menu bar #
         data_window.config(menu=menu_bar)
 
+      # button logs user out and brings back the login page #
       menu_1.add_command(label="Log Out", command=lambda:[data_window.withdraw(),main.deiconify()])
 
 
-
+      # configures the filter casecade #
       filter_menu = tk.Menu(menu_2, tearoff=0)
 
-
-      product_menu = tk.Menu(filter_menu, tearoff=0)
-      relation_menu = tk.Menu(filter_menu, tearoff=0)
-
-      product_menu.add_checkbutton(label='Product', 
+      # sections of the filter menu, base on 
+      ps_menu = tk.Menu(filter_menu, tearoff=0)
+      purpose_menu = tk.Menu(filter_menu, tearoff=0)
+      
+      # adds check buttons for product/service cascade #
+      ps_menu.add_checkbutton(label='Product', 
         variable=product_var, onvalue='True', offvalue='False')
-      product_menu.add_checkbutton(label='Service', 
+      ps_menu.add_checkbutton(label='Service', 
         variable=service_var, onvalue='True', offvalue='False')
-      relation_menu.add_checkbutton(label='Hardware', 
+      
+      # adds check buttons for purpose cascade #
+      purpose_menu.add_checkbutton(label='Hardware', 
         variable=hardware_var, onvalue='True', offvalue='False')
-      relation_menu.add_checkbutton(label='Financial', 
+      purpose_menu.add_checkbutton(label='Financial', 
         variable=financial_var, onvalue='True', offvalue='False')
-      relation_menu.add_checkbutton(label="Info", 
+      purpose_menu.add_checkbutton(label="Info", 
         variable = info_var, onvalue='True', offvalue="False")
-      filter_menu.add_cascade(label='Product/Service', menu=product_menu)
-      filter_menu.add_cascade(label='Relation', menu=relation_menu)
+      
+      #configures cascades #
+      filter_menu.add_cascade(label='Product/Service', menu=ps_menu)
+      filter_menu.add_cascade(label='Relation', menu=purpose_menu)
 
 
 
-
+      # adds cascades onto menu bar #
       menu_2.add_cascade(label="Filter", menu=filter_menu)
       menu_bar.add_cascade(label="Account", menu=menu_1)
       menu_bar.add_cascade(label="Options", menu=menu_2)
+      
+      # applies the filters that were selected #
       menu_bar.add_command(label="Apply Filter", command =lambda: [combine_filter()])
+
+      # clears the filters selected #      
       menu_bar.add_command(label="Clear Filter", command = lambda: [update_listbox(), clear_checkbox()])
       data_window.config(menu=menu_bar)
+      
+      # configures the listbox for data as well as the scrollbar for it #
       scrollbar = tk.Scrollbar(data_window)
       listbox = tk.Listbox(data_window, width=60, height=20)
       scrollbar.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
       listbox.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
       listbox.config(yscrollcommand = scrollbar.set)
       scrollbar.config(command = listbox.yview)
+      
+      # gets data for partner listbox #
       cursor.execute("""
                      SELECT * 
                      FROM FBLA_PROJECT.dbo.partners
@@ -718,8 +783,11 @@ def data_window():
 
 
     else:
+      # shows error messagebox saying that the password for the user is incorrect #
       messagebox.showerror("Error","Password is incorrect!") 
   except TypeError:
+    
+    # shows error messagebox saying that the username for the user does not exist #
     user_var_login.set("")
     pass_var_login.set("")
     messagebox.showerror("Error", "Username doesn't exist!")  
