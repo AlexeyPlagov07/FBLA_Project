@@ -34,7 +34,6 @@ mechatronics_var = tk.StringVar()
 computer_science_var = tk.StringVar()
 cybersecurity_var = tk.StringVar()
 healthcare_var = tk.StringVar()
-hospitality_var = tk.StringVar()
 aerospace_var = tk.StringVar()
 first_responders_var = tk.StringVar()
 business_var = tk.StringVar()
@@ -44,8 +43,40 @@ filter_ps_list = ['product', 'service']
 filter_ps_dict = {'product':product_var, 'service':service_var}
 filter_purpose_list = ['hardware', 'financial', 'info']
 filter_purpose_dict = {'hardware':hardware_var, 'financial':financial_var, 'info':info_var}
-filter_pathway_list = ['mechatronics', 'computer_science', 'cybersecurity', 'healthcare', 'hospitality', 'aerospace', 'first_responders', 'business', 'graphic_design']
-filter_pathway_dict = {'mechatronics':mechatronics_var, 'computer_science':computer_science_var, 'cybersecurity':cybersecurity_var, 'healthcare':healthcare_var, 'hospitality':hospitality_var, 'aerospace':aerospace_var, 'first_responders':first_responders_var, 'business':business_var, 'graphic_design':graphic_design_var}
+filter_pathway_list = ['mechatronics', 'computer_science', 'cybersecurity', 'healthcare', 'aerospace', 'first_responders', 'business', 'graphic_design']
+filter_pathway_dict = {'mechatronics':mechatronics_var, 'computer_science':computer_science_var, 'cybersecurity':cybersecurity_var, 'healthcare':healthcare_var, 'aerospace':aerospace_var, 'first_responders':first_responders_var, 'business':business_var, 'graphic_design':graphic_design_var}
+partner_info_dict = {
+                     "Microsoft":"Microsoft is a software as a service company \n that provides AAI students with technology knowledge, \n but mainly financial support through grants",
+                     "Seimens":"Seimens is a tech and engineering company that focuses on automating processes. \n Seimens provides mechatronics students with products for training the students.",
+                     "Northside Hospital":"Northside is one of the leading hospitals in the US \n and provides AAI\'s healthcare students with residential hospital knowlegde, \n as well as training for on site situations",
+                     "Automation Direct":"Automation Direct is a manufacturing company that mainly provides AAI students with materials, \n especially for their developing FRC robotics team.",
+                     "Georgia Power":"Georgia Power is the leading power company in Georgia. With their extensive knowledge, \n Georgia Power provides energy and mechatroncis students \n with knowledge concerning the pathway and help out with \n internships for work based learning.",
+                     "UNG":"University of North Georgia is an amazing georgia college to attend to especially for the field of cybersecurity. \n UNG provides AAI\'s cybersecurity students with great experiences and opportuunities \n to those trying to enter the cybersecurity field.",
+                     "Honda":"Honda is one of the leaders in the automotive industry and provides the AAI FRC robotics team with the ability \n to advance on their robot by providing financial grants to the team.",
+                     "EPPS Aviation": "EPPS Aviation is a parts manufacturer for small airliners and personal planes. \n EPPS Aviation provides support to the aerospace students at AAI, \n by proving pathway information, and by teaching manufacturing techniques for planes \n and other aerospace tech.",
+                     "American Red Cross":"The American Red Cross is a national foundation used to help people in the \n US on a daily basis. The ARC helps the healthcare and first responder students at AAI, \n by providing financial support, and by providing internship \n opportunities for students.",
+                     "IBM":"IBM is a data and security company that helps companies with their technical needs. \n IBM helps AAI cybersecurity and computer science students financially by providing money and grants \n for certifictaions and courses for students.",
+                     "Brandywine Printing":"Brandywine Printing is a small graphic design shop that prints designs onto textiles. \n Brandywine Printing helps AAI graphic design students by providing them with \n special tools and materials used for creating and making designs on textiles \nfor students in the student shop and other events.",
+                     "Lanier Flight Center":"Lanier Flight Center is a organiztaion that helps with the flight eductaion of students. \n Laneir Flight Center helps AAI aerospace atudents by providing for them \n learning opportunities in flying and other extensive knwoledge about flying.",
+                     "Adobe":"Adobe is a software as a service company and provides AAI students with Adobe software for free \n instead of for purchase.",
+                     "3M":"3M is a manufacturing company that manufactures parts for businesses. \n 3M helps the AAI FRC robotics team by provifing parts and electronics to the team.",
+                     "Amazon":"Amazon is a shipping and data company that provides services for people worldwide.\n They help AAI students by providing internship opportunities for \n students.",
+                     "EPA":"The EPA is a government agency dealing with environmental protection. \n EPA works with mechatronics and energy students to try and come up \n with environmental solutions to problems in the community.",
+                     "JP Morgan":"JP Morgan is a financial company that provides banking help to people. \n JP Morgan helps the AAI business students with knowledge of finance and business.",
+                     "United Airlines":"United Airlines is a airliner company that provides a travel service for people.\n United Airlines works with aerospace studetns to try and \n provide internship opporutnities for students.",
+                     "Chevron":"Chevron is a oil company and provides AAI first responder students with information \n on specific fire situations such as oil fires and how to deal with them.",
+                     "Coca-Cola":"Coca-Cola is one of the leading beverage companies in the world; \n supporting financially the AAI FRC team.",
+                     "National Geographic":"National Geographic is a nature organization, bring value to the natural world\n and also value to the graphic design students by helping them gain internship \n opportunities through images and competitions.",
+                     "Walmart":"Walmart is a leader in the shopping industry, provding financial support \nthrough grants for the AAI FRC team.",
+                     "General Electric":"General Electric is an appliance company specializing \n in household appliances and also helps the mechatronics students by \n providing parts for the classroom.",
+                     "Nike":"Nike is a leader in the shoe company that also provides \n the AAI graphic design students with insite on how Nike does their \n designs and provides the students with opportunities in internships.",
+                     "Dell":"Dell is a tech company that produces computers for people. \n Dell also provides a majority of the computer science students\' desktops and laptops.",
+                     "Google":"Google is a data company that focuses on providing the user with a good service. \n Google also provides the cybersecurity students with a good amount of \n internship positions and opportunities.",
+                     "Walgreens":"Walgreens is a mini store and pharmaceutical company. \n They provide AAI healthcare students with knowledge about the pharmaceutical business and provides students with internship opportunities.",
+                     "Lockheed Martin":"Lockheed Martin is an aerospace company specializing in combat planes. \n they provide the AAI aerospace students with internship and work basd learning opportunities.",
+                     "Chick-fil-a":"Chick-fil-a is a major fast food company and the provide the AAI \n FRC robotics team with money and financial support.",
+                     "Home Depot":"Home Depot is a hardware warehouse store that provides people with hardware \n they need. Home Depot also supports the AAI FRC team with hardware for the robot."
+                     }
 ############################
 
 
@@ -242,13 +273,34 @@ def partner_list():
 # window with data and sorting options #
 def data_window():
   
-  #function puts listbox in alphabetical order #
+  # provides a small blurb about the company chosen #
+  def info_box():
+    selected_partner = []
+    final_partner = []
+    #appends all selected users to a list #
+    for i in listbox.curselection():
+      selected_partner.append(listbox.get(i))
+      selected_partner = (selected_partner[0]).split()    
+    i = 0
+    while selected_partner[i] != "|":
+      final_partner.append(selected_partner[i])
+      i += 1
+      
+    final_partner = ' '.join(final_partner)
+    messagebox.showinfo(final_partner, partner_info_dict[final_partner])
+
+
+
+  # function puts listbox items in alphabetical order #
   def alphabetical_listbox():
     list_box_var = (list(listbox.get(0, tk.END)))
     list_box_var = sorted(list_box_var)
     listbox.delete(0, tk.END)
     for i in list_box_var:
       listbox.insert(tk.END, i)
+  
+  
+  # function puts listbox items in reverse alphabetical order #
   def realphabetical_listbox():
     list_box_var = (list(listbox.get(0, tk.END)))
     list_box_var = (sorted(list_box_var))[::-1]
@@ -256,6 +308,7 @@ def data_window():
     for i in list_box_var:
       listbox.insert(tk.END, i)
     
+  
   # pops out a window that shows all users and their roles #
   def view_users():
 
@@ -521,7 +574,7 @@ def data_window():
     add_window.configure(bg="powderblue")
 
     # all patrner info entries and labels #
-    p_name1 = tk.Label(add_window, text="Partner partner_name", bg="powderblue")
+    p_name1 = tk.Label(add_window, text="Partner Name", bg="powderblue")
     p_name1.place(relx=0.2, rely=0.1, anchor=tk.CENTER)
     p_purpose1 = tk.Label(add_window, text="Partner Purpose", bg="powderblue")
     p_purpose1.place(relx=0.2, rely=0.2, anchor=tk.CENTER)
@@ -598,7 +651,6 @@ def data_window():
     for i in filter_ps_list:
       if (filter_ps_dict[i]).get() == 'True':
         temp_filter_list.append(i)
-
     filter_query = """
                    SELECT * 
                    FROM FBLA_PROJECT.dbo.partners 
@@ -610,7 +662,6 @@ def data_window():
       cursor.execute(filter_query, (str(i),))
       # appends partner_info query to a list #
       temp_filter_result.append(cursor.fetchall())
-
 
     # clears listbox #
     listbox.delete(0,tk.END)
@@ -712,31 +763,31 @@ def data_window():
       for i in full_list:
         listbox.insert(tk.END, i)
     # redo comments later #
-    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter != []:
+    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter() != []:
       full_list = set(apply_ps_filter()) & set(apply_pathway_filter())
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
     
     # redo comments later #
-    elif apply_purpose_filter() != [] and apply_ps_filter() != [] and apply_pathway_filter == []:
+    elif apply_purpose_filter() != [] and apply_ps_filter() != [] and apply_pathway_filter() == []:
       full_list = set(apply_ps_filter()) & set(apply_purpose_filter())
       listbox.delete(0, tk.END)
 
       for i in full_list:
         listbox.insert(tk.END, i) 
 
-    elif apply_purpose_filter() != [] and apply_ps_filter() == [] and apply_pathway_filter == []:
+    elif apply_purpose_filter() != [] and apply_ps_filter() == [] and apply_pathway_filter() == []:
       full_list = apply_purpose_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i) 
-    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter == []:
+    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter() == []:
       full_list = apply_ps_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
-    elif apply_purpose_filter() == [] and apply_ps_filter() == [] and apply_pathway_filter != []:
+    elif apply_purpose_filter() == [] and apply_ps_filter() == [] and apply_pathway_filter() != []:
       full_list = apply_pathway_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
@@ -756,7 +807,6 @@ def data_window():
     computer_science_var.set("False")
     cybersecurity_var.set("False")
     healthcare_var.set("False")
-    hospitality_var.set("False")
     aerospace_var.set("False")
     first_responders_var.set("False")
     business_var.set("False")
@@ -863,9 +913,7 @@ def data_window():
       pathway_menu.add_checkbutton(label='Cybersecurity', 
         variable=cybersecurity_var, onvalue='True', offvalue='False')
       pathway_menu.add_checkbutton(label='Healthcare', 
-        variable=healthcare_var, onvalue='True', offvalue='False')
-      pathway_menu.add_checkbutton(label='Hospitality', 
-        variable=hospitality_var, onvalue='True', offvalue='False')
+        variable=healthcare_var, onvalue='True', offvalue='False')     
       pathway_menu.add_checkbutton(label='Aerospace', 
         variable=aerospace_var, onvalue='True', offvalue='False')
       pathway_menu.add_checkbutton(label='First Responders', 
@@ -893,19 +941,21 @@ def data_window():
       data_window.config(menu=menu_bar)
       
 
-      # creates search bar #
+      # creates search bar and search button #
       search = tk.Entry(data_window, textvariable=search_var)
       search.place(width=250, relx=0.15, rely=0.1)
-      searchbutton = tk.Button(data_window, command=search_for_organization)
-      searchbutton.place(width=25, height=25, relx=0.7, rely=0.095)
+      searchbutton = tk.Button(data_window, command=lambda: [search_for_organization()], text='Search')
+      searchbutton.place(width=60, height=25, relx=0.7, rely=0.095)
 
-
+      # creates more-info button #
+      info_button = tk.Button(data_window, command=lambda: [info_box()], text="More Info")
+      info_button.place(width=70, height=25, relx=0.84, rely=0.095)
 
       # configures the listbox for data as well as the scrollbar for it #
       scrollbar = tk.Scrollbar(data_window)
-      listbox = tk.Listbox(data_window, width=70, height=20)
+      listbox = tk.Listbox(data_window, width=70, height=20, selectmode=tk.MULTIPLE)
       scrollbar.place(relx=0.45, rely=0.5, anchor=tk.CENTER)
-      listbox.place(relx=0.45, rely=0.5, anchor=tk.CENTER)
+      listbox.place(relx=0.50, rely=0.5, anchor=tk.CENTER)
       listbox.config(yscrollcommand = scrollbar.set)
       scrollbar.config(command = listbox.yview)
       
