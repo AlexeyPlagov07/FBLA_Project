@@ -23,16 +23,29 @@ new_p_purpose = tk.StringVar()
 new_p_ps = tk.StringVar()
 new_p_relation = tk.StringVar()
 new_p_contact = tk.StringVar()
+new_p_pathway = tk.StringVar()
 p_delete = tk.StringVar()
 product_var = tk.StringVar()
 service_var = tk.StringVar()
 hardware_var = tk.StringVar()
 financial_var = tk.StringVar()
 info_var = tk.StringVar()
+mechatronics_var = tk.StringVar()
+computer_science_var = tk.StringVar()
+cybersecurity_var = tk.StringVar()
+healthcare_var = tk.StringVar()
+hospitality_var = tk.StringVar()
+aerospace_var = tk.StringVar()
+first_responders_var = tk.StringVar()
+business_var = tk.StringVar()
+graphic_design_var = tk.StringVar()
+search_var = tk.StringVar()
 filter_ps_list = ['product', 'service']
 filter_ps_dict = {'product':product_var, 'service':service_var}
 filter_purpose_list = ['hardware', 'financial', 'info']
 filter_purpose_dict = {'hardware':hardware_var, 'financial':financial_var, 'info':info_var}
+filter_pathway_list = ['mechatronics', 'computer_science', 'cybersecurity', 'healthcare', 'hospitality', 'aerospace', 'first_responders', 'business', 'graphic_design']
+filter_pathway_dict = {'mechatronics':mechatronics_var, 'computer_science':computer_science_var, 'cybersecurity':cybersecurity_var, 'healthcare':healthcare_var, 'hospitality':hospitality_var, 'aerospace':aerospace_var, 'first_responders':first_responders_var, 'business':business_var, 'graphic_design':graphic_design_var}
 ############################
 
 
@@ -229,9 +242,19 @@ def partner_list():
 # window with data and sorting options #
 def data_window():
   
-  
-  
-    
+  #function puts listbox in alphabetical order #
+  def alphabetical_listbox():
+    list_box_var = (list(listbox.get(0, tk.END)))
+    list_box_var = sorted(list_box_var)
+    listbox.delete(0, tk.END)
+    for i in list_box_var:
+      listbox.insert(tk.END, i)
+  def realphabetical_listbox():
+    list_box_var = (list(listbox.get(0, tk.END)))
+    list_box_var = (sorted(list_box_var))[::-1]
+    listbox.delete(0, tk.END)
+    for i in list_box_var:
+      listbox.insert(tk.END, i)
     
   # pops out a window that shows all users and their roles #
   def view_users():
@@ -452,11 +475,12 @@ def data_window():
 
     # appends all partners into the listbox #
     result21 = list(cursor.fetchall())
+    
+    
     for i in range(len(result21)):
       j = list(result21[i])
-      info121 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4])
+      info121 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
       listbox.insert(tk.END, info121)
-
   # function that adds partners into the listbox of partners #
   def add_partner():
 
@@ -467,12 +491,12 @@ def data_window():
       add_query = """
                   INSERT 
                   INTO partners 
-                  VALUES (?,?,?,?,?)
+                  VALUES (?,?,?,?,?,?)
                   """
       cursor.execute(add_query, 
         (new_p_name.get(), new_p_purpose.get(), 
-        new_p_ps.get(), new_p_relation.get(), 
-        new_p_contact.get()))
+        new_p_ps.get(), new_p_relation.get(),
+        new_p_pathway.get(), new_p_contact.get()))
       conn.commit()
 
       # resets the entries for partner info #
@@ -480,6 +504,7 @@ def data_window():
       new_p_purpose.set("")
       new_p_ps.set("")
       new_p_relation.set("")
+      new_p_pathway.set("")
       new_p_contact.set("")
       # shows success message #
       messagebox.showinfo("Success!", "Your New Partner Has Been Saved!")
@@ -504,8 +529,10 @@ def data_window():
     p_ps1.place(relx=0.2, rely=0.3, anchor=tk.CENTER)
     p_relation1 = tk.Label(add_window, text="Partner Relation", bg="powderblue")
     p_relation1.place(relx=0.2, rely=0.4, anchor=tk.CENTER)
+    p_pathway1 = tk.Label(add_window, text='Pathway', bg="powderblue")
+    p_pathway1.place(relx=0.2, rely=0.5 , anchor=tk.CENTER)
     p_contact1 = tk.Label(add_window, text="Partner Contact", bg="powderblue")
-    p_contact1.place(relx=0.2, rely=0.5, anchor=tk.CENTER)
+    p_contact1.place(relx=0.2, rely=0.6, anchor=tk.CENTER)
     p_name = tk.Entry(add_window, textvariable=new_p_name)
     p_name.place(relx=0.7, rely=0.1, anchor=tk.CENTER)
     p_purpose = tk.Entry(add_window, textvariable=new_p_purpose)
@@ -514,15 +541,17 @@ def data_window():
     p_ps.place(relx=0.7, rely=0.3, anchor=tk.CENTER)
     p_relation = tk.Entry(add_window, textvariable=new_p_relation)
     p_relation.place(relx=0.7, rely=0.4, anchor=tk.CENTER)
+    p_pathway = tk.Entry(add_window, textvariable=new_p_pathway)
+    p_pathway.place(relx=0.7, rely=0.5, anchor=tk.CENTER)
     p_contact = tk.Entry(add_window, textvariable=new_p_contact)
-    p_contact.place(relx=0.7, rely=0.5, anchor=tk.CENTER)
+    p_contact.place(relx=0.7, rely=0.6, anchor=tk.CENTER)
 
     # partner submit button that closes the window, adds the partner, and updates the listbox #
     new_p_submit = tk.Button(add_window, text="Add Partner", command = lambda: [add_partner(),add_window.withdraw(), update_listbox()])
-    new_p_submit.place(relx=0.5, rely=0.7, anchor=S)
+    new_p_submit.place(relx=0.5, rely=0.8, anchor=S)
     new_p_submit_tip = ToolTip(new_p_submit, msg="Adds new partner \n to the list", delay = 1.5)
 
-
+ 
   # delets partner from listbox #
   def delete_partner():
 
@@ -592,7 +621,7 @@ def data_window():
         if j != []:
 
           h = list(j)
-          filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4])
+          filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4] + " | " + h[5])
           final_list.append(filter_listbox_result)
 
 
@@ -630,42 +659,92 @@ def data_window():
       for j in i:
         if j != []:
           h = list(j)
-          filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4])
+          filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4] + " | " + h[5])
           final_list.append(filter_listbox_result)
     # returns all of the partners that are refernced by the filter in a list #
     return final_list
 
+  def apply_pathway_filter():
+    temp_filter_list = []
+    temp_filter_result = []
+    final_list = []
 
+    # sees whether the checkbox is selected for filtering and appends the filter to a list #
+    for i in filter_pathway_list:
+      # sees which buttons are selected in the filter dropdown #
+      if (filter_pathway_dict[i]).get() == 'True':
+        temp_filter_list.append(i)
+    
+    # runs query that selects all partners with the filters applied #
+    filter_query = """
+                   SELECT * 
+                   FROM FBLA_PROJECT.dbo.partners 
+                   WHERE pathway = (?)
+                   """
+    
+    # runs query based on all of the filters appended to a list #
+    for i in temp_filter_list:
+      cursor.execute(filter_query, (str(i),))
+      temp_filter_result.append(cursor.fetchall())
+    
+    # updates listbox based on filtered output #
+    listbox.delete(0,tk.END)
+    for i in temp_filter_result:
+      for j in i:
+        if j != []:
+          h = list(j)
+          filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4] + " | " + h[5])
+          final_list.append(filter_listbox_result)
+    # returns all of the partners that are refernced by the filter in a list #
+    return final_list
   # combines the two filter sets to compare and see which partners are in both lists #
   def combine_filter():
-
-    # If there are partners in both filter lists, then they form into one #
-    # only keeping the partners that are in both lists #
-    if apply_ps_filter() != [] and apply_purpose_filter() != []:
-        full_list = set(apply_ps_filter()) & set(apply_purpose_filter())
+    # redo comments later #
+    if apply_ps_filter() != [] and apply_purpose_filter() != [] and apply_pathway_filter() != []:
+        full_list = set(apply_ps_filter()) & set(apply_purpose_filter()) & set(apply_pathway_filter())
         listbox.delete(0, tk.END)
         for i in full_list:
           listbox.insert(tk.END, i)
+    # redo comments later #
+    elif apply_ps_filter() != [] and apply_purpose_filter() == [] and apply_pathway_filter() != []:
+      full_list = set(apply_ps_filter()) & set(apply_pathway_filter())
+      listbox.delete(0, tk.END)
+      for i in full_list:
+        listbox.insert(tk.END, i)
+    # redo comments later #
+    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter != []:
+      full_list = set(apply_ps_filter()) & set(apply_pathway_filter())
+      listbox.delete(0, tk.END)
+      for i in full_list:
+        listbox.insert(tk.END, i)
+    
+    # redo comments later #
+    elif apply_purpose_filter() != [] and apply_ps_filter() != [] and apply_pathway_filter == []:
+      full_list = set(apply_ps_filter()) & set(apply_purpose_filter())
+      listbox.delete(0, tk.END)
 
-    # If the purpose filter list is empty, final list is set to the partners #
-    # in the product/service filter list #
-    elif apply_ps_filter() != [] and apply_purpose_filter() == []:
+      for i in full_list:
+        listbox.insert(tk.END, i) 
+
+    elif apply_purpose_filter() != [] and apply_ps_filter() == [] and apply_pathway_filter == []:
+      full_list = apply_purpose_filter()
+      listbox.delete(0, tk.END)
+      for i in full_list:
+        listbox.insert(tk.END, i) 
+    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter == []:
       full_list = apply_ps_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
-
-    # If the product/service filter list is empty, final list is set to the partners #
-    # in the purpose filter list #
-    elif apply_purpose_filter() != [] and apply_ps_filter() == []:
-      full_list = apply_purpose_filter()
+    elif apply_purpose_filter() == [] and apply_ps_filter() == [] and apply_pathway_filter != []:
+      full_list = apply_pathway_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
-        listbox.insert(tk.END, i)
+        listbox.insert(tk.END, i) 
     else:
       listbox.delete(0, tk.END)
 
-
+    
   # function is used to clear the filter checkboxes when the 'clear filter' button is used #
   def clear_checkbox():
     product_var.set("False")
@@ -673,6 +752,32 @@ def data_window():
     hardware_var.set("False")
     financial_var.set("False")
     info_var.set("False")
+    mechatronics_var.set("False")
+    computer_science_var.set("False")
+    cybersecurity_var.set("False")
+    healthcare_var.set("False")
+    hospitality_var.set("False")
+    aerospace_var.set("False")
+    first_responders_var.set("False")
+    business_var.set("False")
+    graphic_design_var.set("False")
+  
+  def search_for_organization():
+    searchquery = ("""
+                   SELECT *
+                   FROM FBLA_PROJECT.dbo.partners
+                   WHERE partner_name =(?)
+                   """)
+    cursor.execute(searchquery, (search_var.get(),))
+    search_result = cursor.fetchall()
+    if search_result == []:
+      update_listbox()
+    else:
+      listbox.delete(0, tk.END)
+      j = list(search_result[0])
+      insert_listbox = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
+      listbox.insert(tk.END, insert_listbox)
+  
   try:
     
     # Gets the password from username in database and compares the result to the password given by user #
@@ -699,7 +804,7 @@ def data_window():
       menu_bar = tk.Menu(data_window)
       menu_1 = tk.Menu(menu_bar, tearoff=0)
       menu_2 = tk.Menu(menu_bar, tearoff=0)
-
+      menu_4 = tk.Menu(menu_bar, tearoff=0)
       # If the user is an admin, an extra menu bar item named 'admin' is added with admin abilites #
       if str(user_perm.get()) == "admin":
         
@@ -722,14 +827,19 @@ def data_window():
       # button logs user out and brings back the login page #
       menu_1.add_command(label="Log Out", command=lambda:[data_window.withdraw(),main.deiconify()])
 
-
+      # button sorts list from A-Z #
+      menu_4.add_command(label="A-Z", command=lambda: [alphabetical_listbox()])
+      
+      # button sorts from Z-A #
+      menu_4.add_command(label="Z-A", command=lambda: [realphabetical_listbox()])
       # configures the filter casecade #
       filter_menu = tk.Menu(menu_2, tearoff=0)
 
-      # sections of the filter menu, base on 
+      # sections of the filter menu #
       ps_menu = tk.Menu(filter_menu, tearoff=0)
       purpose_menu = tk.Menu(filter_menu, tearoff=0)
-      
+      pathway_menu = tk.Menu(filter_menu, tearoff=0)
+
       # adds check buttons for product/service cascade #
       ps_menu.add_checkbutton(label='Product', 
         variable=product_var, onvalue='True', offvalue='False')
@@ -744,17 +854,37 @@ def data_window():
       purpose_menu.add_checkbutton(label="Info", 
         variable = info_var, onvalue='True', offvalue="False")
       
+      # adds check buttons for pathways #
+
+      pathway_menu.add_checkbutton(label='Mechatronics', 
+        variable=mechatronics_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Computer Science', 
+        variable=computer_science_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Cybersecurity', 
+        variable=cybersecurity_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Healthcare', 
+        variable=healthcare_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Hospitality', 
+        variable=hospitality_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Aerospace', 
+        variable=aerospace_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='First Responders', 
+        variable=first_responders_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Business', 
+        variable=business_var, onvalue='True', offvalue='False')
+      pathway_menu.add_checkbutton(label='Graphic Design', 
+        variable=graphic_design_var, onvalue='True', offvalue='False')
       #configures cascades #
       filter_menu.add_cascade(label='Product/Service', menu=ps_menu)
       filter_menu.add_cascade(label='Relation', menu=purpose_menu)
-
+      filter_menu.add_cascade(label='Pathway',menu = pathway_menu )
 
 
       # adds cascades onto menu bar #
       menu_2.add_cascade(label="Filter", menu=filter_menu)
       menu_bar.add_cascade(label="Account", menu=menu_1)
       menu_bar.add_cascade(label="Options", menu=menu_2)
-      
+      menu_bar.add_cascade(label="Sort", menu = menu_4)
       # applies the filters that were selected #
       menu_bar.add_command(label="Apply Filter", command =lambda: [combine_filter()])
 
@@ -762,11 +892,20 @@ def data_window():
       menu_bar.add_command(label="Clear Filter", command = lambda: [update_listbox(), clear_checkbox()])
       data_window.config(menu=menu_bar)
       
+
+      # creates search bar #
+      search = tk.Entry(data_window, textvariable=search_var)
+      search.place(width=250, relx=0.15, rely=0.1)
+      searchbutton = tk.Button(data_window, command=search_for_organization)
+      searchbutton.place(width=25, height=25, relx=0.7, rely=0.095)
+
+
+
       # configures the listbox for data as well as the scrollbar for it #
       scrollbar = tk.Scrollbar(data_window)
-      listbox = tk.Listbox(data_window, width=60, height=20)
-      scrollbar.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-      listbox.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+      listbox = tk.Listbox(data_window, width=70, height=20)
+      scrollbar.place(relx=0.45, rely=0.5, anchor=tk.CENTER)
+      listbox.place(relx=0.45, rely=0.5, anchor=tk.CENTER)
       listbox.config(yscrollcommand = scrollbar.set)
       scrollbar.config(command = listbox.yview)
       
@@ -776,9 +915,10 @@ def data_window():
                      FROM FBLA_PROJECT.dbo.partners
                      """)
       result2 = list(cursor.fetchall())
+      
       for i in range(len(result2)):
         j = list(result2[i])
-        info12 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4])
+        info12 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
         listbox.insert(tk.END, info12)
 
 
