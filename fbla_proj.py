@@ -39,43 +39,109 @@ first_responders_var = tk.StringVar()
 business_var = tk.StringVar()
 graphic_design_var = tk.StringVar()
 search_var = tk.StringVar()
+filter_image = tk.PhotoImage(file="filter.png")
+plus_image = tk.PhotoImage(file="plus.png")
+logout_image = tk.PhotoImage(file="logout.png")
+####
+microsoft_image = tk.PhotoImage(file="partner_images/microsoft.png")
+seimens_image = tk.PhotoImage(file="partner_images/seimens.png")
+northside_image = tk.PhotoImage(file="partner_images/northside.png")
+automation_image = tk.PhotoImage(file="partner_images/automation.png")
+gp_image = tk.PhotoImage(file="partner_images/ga_power.png")
+ung_image = tk.PhotoImage(file="partner_images/ung.png")
+honda_image = tk.PhotoImage(file="partner_images/honda.png")
+epps_image = tk.PhotoImage(file="partner_images/epps.png")
+arc_image = tk.PhotoImage(file="partner_images/amr.png")
+ibm_image = tk.PhotoImage(file="partner_images/ibm.png")
+brandy_wine_image = tk.PhotoImage(file="partner_images/brandy_wine.png")
+lanier_image = tk.PhotoImage(file="partner_images/lanier.png")
+adobe_image = tk.PhotoImage(file="partner_images/adobe.png")
+MMM_image = tk.PhotoImage(file="partner_images/3M.png")
+amazon_image = tk.PhotoImage(file="partner_images/amazon.png")
+epa_image = tk.PhotoImage(file="partner_images/epa.png")
+jp_morgan_image = tk.PhotoImage(file="partner_images/JP_morgan.png")
+united_airlines_image = tk.PhotoImage(file="partner_images/united_airlines.png")
+chevron_image = tk.PhotoImage(file="partner_images/chevron.png")
+coke_image = tk.PhotoImage(file="partner_images/coke.png")
+natgeo_image = tk.PhotoImage(file="partner_images/nat_geo.png")
+walmart_image = tk.PhotoImage(file="partner_images/walmart.png")
+ge_image = tk.PhotoImage(file="partner_images/ge.png")
+nike_image = tk.PhotoImage(file="partner_images/nike.png")
+dell_image = tk.PhotoImage(file="partner_images/dell.png")
+google_image = tk.PhotoImage(file="partner_images/google.png")
+walgreens_image = tk.PhotoImage(file="partner_images/walgreens.png")
+lm_image = tk.PhotoImage(file="partner_images/lm.png")
+chick_image = tk.PhotoImage(file="partner_images/chick.png")
+home_depot_image = tk.PhotoImage(file="partner_images/home_depot.png")
 filter_ps_list = ['product', 'service']
 filter_ps_dict = {'product':product_var, 'service':service_var}
 filter_purpose_list = ['hardware', 'financial', 'info']
 filter_purpose_dict = {'hardware':hardware_var, 'financial':financial_var, 'info':info_var}
-filter_pathway_list = ['mechatronics', 'computer_science', 'cybersecurity', 'healthcare', 'aerospace', 'first_responders', 'business', 'graphic_design']
-filter_pathway_dict = {'mechatronics':mechatronics_var, 'computer_science':computer_science_var, 'cybersecurity':cybersecurity_var, 'healthcare':healthcare_var, 'aerospace':aerospace_var, 'first_responders':first_responders_var, 'business':business_var, 'graphic_design':graphic_design_var}
+filter_pathway_list = ['mechatronics', 'computer science', 'cybersecurity', 'healthcare', 'aerospace', 'first responders', 'business', 'graphic design']
+filter_pathway_dict = {'mechatronics':mechatronics_var, 'computer science':computer_science_var, 'cybersecurity':cybersecurity_var, 'healthcare':healthcare_var, 'aerospace':aerospace_var, 'first responders':first_responders_var, 'business':business_var, 'graphic design':graphic_design_var}
+partner_image_dict = {
+                      "Microsoft":microsoft_image, 
+                      "Seimens":seimens_image, 
+                      "Northside Hospital":northside_image, 
+                      "Automation Direct":automation_image, 
+                      "Georgia Power":gp_image, 
+                      "UNG":ung_image, 
+                      "Honda":honda_image, 
+                      "EPPS Aviation":epps_image, 
+                      "American Red Cross":arc_image, 
+                      "IBM":ibm_image, 
+                      "BrandyWine Printing":brandy_wine_image, 
+                      "Lanier Flight Center":lanier_image, 
+                      "Adobe":adobe_image,
+                      "3M":MMM_image,
+                      "Amazon":amazon_image,
+                      "EPA":epa_image,
+                      "JP Morgan":jp_morgan_image,
+                      "United Airlines":united_airlines_image,
+                      "Chevron":chevron_image,
+                      "Coca-Cola":coke_image,
+                      "National Geographic":natgeo_image,
+                      "Walmart":walmart_image,
+                      "General Electric":ge_image,
+                      "Nike":nike_image,
+                      "Dell":dell_image,
+                      "Google":google_image,
+                      "Walgreens":walgreens_image,
+                      "Lockheed Martin":lm_image,
+                      "Chick-fil-a":chick_image,
+                      "Home Depot":home_depot_image
+                      }
 partner_info_dict = {
-                     "Microsoft":"Microsoft is a software as a service company \n that provides AAI students with technology knowledge, \n but mainly financial support through grants",
-                     "Seimens":"Seimens is a tech and engineering company that focuses on automating processes. \n Seimens provides mechatronics students with products for training the students.",
-                     "Northside Hospital":"Northside is one of the leading hospitals in the US \n and provides AAI\'s healthcare students with residential hospital knowlegde, \n as well as training for on site situations",
-                     "Automation Direct":"Automation Direct is a manufacturing company that mainly provides AAI students with materials, \n especially for their developing FRC robotics team.",
-                     "Georgia Power":"Georgia Power is the leading power company in Georgia. With their extensive knowledge, \n Georgia Power provides energy and mechatroncis students \n with knowledge concerning the pathway and help out with \n internships for work based learning.",
-                     "UNG":"University of North Georgia is an amazing georgia college to attend to especially for the field of cybersecurity. \n UNG provides AAI\'s cybersecurity students with great experiences and opportuunities \n to those trying to enter the cybersecurity field.",
-                     "Honda":"Honda is one of the leaders in the automotive industry and provides the AAI FRC robotics team with the ability \n to advance on their robot by providing financial grants to the team.",
-                     "EPPS Aviation": "EPPS Aviation is a parts manufacturer for small airliners and personal planes. \n EPPS Aviation provides support to the aerospace students at AAI, \n by proving pathway information, and by teaching manufacturing techniques for planes \n and other aerospace tech.",
-                     "American Red Cross":"The American Red Cross is a national foundation used to help people in the \n US on a daily basis. The ARC helps the healthcare and first responder students at AAI, \n by providing financial support, and by providing internship \n opportunities for students.",
-                     "IBM":"IBM is a data and security company that helps companies with their technical needs. \n IBM helps AAI cybersecurity and computer science students financially by providing money and grants \n for certifictaions and courses for students.",
-                     "Brandywine Printing":"Brandywine Printing is a small graphic design shop that prints designs onto textiles. \n Brandywine Printing helps AAI graphic design students by providing them with \n special tools and materials used for creating and making designs on textiles \nfor students in the student shop and other events.",
-                     "Lanier Flight Center":"Lanier Flight Center is a organiztaion that helps with the flight eductaion of students. \n Laneir Flight Center helps AAI aerospace atudents by providing for them \n learning opportunities in flying and other extensive knwoledge about flying.",
-                     "Adobe":"Adobe is a software as a service company and provides AAI students with Adobe software for free \n instead of for purchase.",
-                     "3M":"3M is a manufacturing company that manufactures parts for businesses. \n 3M helps the AAI FRC robotics team by provifing parts and electronics to the team.",
-                     "Amazon":"Amazon is a shipping and data company that provides services for people worldwide.\n They help AAI students by providing internship opportunities for \n students.",
-                     "EPA":"The EPA is a government agency dealing with environmental protection. \n EPA works with mechatronics and energy students to try and come up \n with environmental solutions to problems in the community.",
-                     "JP Morgan":"JP Morgan is a financial company that provides banking help to people. \n JP Morgan helps the AAI business students with knowledge of finance and business.",
-                     "United Airlines":"United Airlines is a airliner company that provides a travel service for people.\n United Airlines works with aerospace studetns to try and \n provide internship opporutnities for students.",
-                     "Chevron":"Chevron is a oil company and provides AAI first responder students with information \n on specific fire situations such as oil fires and how to deal with them.",
-                     "Coca-Cola":"Coca-Cola is one of the leading beverage companies in the world; \n supporting financially the AAI FRC team.",
-                     "National Geographic":"National Geographic is a nature organization, bring value to the natural world\n and also value to the graphic design students by helping them gain internship \n opportunities through images and competitions.",
-                     "Walmart":"Walmart is a leader in the shopping industry, provding financial support \nthrough grants for the AAI FRC team.",
-                     "General Electric":"General Electric is an appliance company specializing \n in household appliances and also helps the mechatronics students by \n providing parts for the classroom.",
-                     "Nike":"Nike is a leader in the shoe company that also provides \n the AAI graphic design students with insite on how Nike does their \n designs and provides the students with opportunities in internships.",
-                     "Dell":"Dell is a tech company that produces computers for people. \n Dell also provides a majority of the computer science students\' desktops and laptops.",
-                     "Google":"Google is a data company that focuses on providing the user with a good service. \n Google also provides the cybersecurity students with a good amount of \n internship positions and opportunities.",
-                     "Walgreens":"Walgreens is a mini store and pharmaceutical company. \n They provide AAI healthcare students with knowledge about the pharmaceutical business and provides students with internship opportunities.",
-                     "Lockheed Martin":"Lockheed Martin is an aerospace company specializing in combat planes. \n they provide the AAI aerospace students with internship and work basd learning opportunities.",
-                     "Chick-fil-a":"Chick-fil-a is a major fast food company and the provide the AAI \n FRC robotics team with money and financial support.",
-                     "Home Depot":"Home Depot is a hardware warehouse store that provides people with hardware \n they need. Home Depot also supports the AAI FRC team with hardware for the robot."
+                     "Microsoft":"Microsoft is a software as a service company that provides AAI students with technology knowledge, but mainly financial support through grants.",
+                     "Seimens":"Seimens is a tech and engineering company that focuses on automating processes. Seimens provides mechatronics students with products for training the students.",
+                     "Northside Hospital":"Northside is one of the leading hospitals in the US and provides AAI\'s healthcare students with residential hospital knowlegde, as well as training for on site situations",
+                     "Automation Direct":"Automation Direct is a manufacturing company that mainly provides AAI students with materials, especially for their developing FRC robotics team.",
+                     "Georgia Power":"Georgia Power is the leading power company in Georgia. With their extensive knowledge, Georgia Power provides energy and mechatroncis students with knowledge concerning the pathway and help out with internships for work based learning.",
+                     "UNG":"University of North Georgia is an amazing georgia college to attend to especially for the field of cybersecurity. UNG provides AAI\'s cybersecurity students with great experiences and opportuunities to those trying to enter the cybersecurity field.",
+                     "Honda":"Honda is one of the leaders in the automotive industry and provides the AAI FRC robotics team with the ability to advance on their robot by providing financial grants to the team.",
+                     "EPPS Aviation": "EPPS Aviation is a parts manufacturer for small airliners and personal planes. EPPS Aviation provides support to the aerospace students at AAI, by proving pathway information, and by teaching manufacturing techniques for planes and other aerospace tech.",
+                     "American Red Cross":"The American Red Cross is a national foundation used to help people in the US on a daily basis. The ARC helps the healthcare and first responder students at AAI, by providing financial support, and by providing internship opportunities for students.",
+                     "IBM":"IBM is a data and security company that helps companies with their technical needs. IBM helps AAI cybersecurity and computer science students financially by providing money and grants for certifictaions and courses for students.",
+                     "Brandywine Printing":"Brandywine Printing is a small graphic design shop that prints designs onto textiles. Brandywine Printing helps AAI graphic design students by providing them with special tools and materials used for creating and making designs on textiles for students in the student shop and other events.",
+                     "Lanier Flight Center":"Lanier Flight Center is a organiztaion that helps with the flight eductaion of students. Laneir Flight Center helps AAI aerospace atudents by providing for them learning opportunities in flying and other extensive knwoledge about flying.",
+                     "Adobe":"Adobe is a software as a service company and provides AAI students with Adobe software for free instead of for purchase.",
+                     "3M":"3M is a manufacturing company that manufactures parts for businesses. 3M helps the AAI FRC robotics team by provifing parts and electronics to the team.",
+                     "Amazon":"Amazon is a shipping and data company that provides services for people worldwide.\n They help AAI students by providing internship opportunities for students.",
+                     "EPA":"The EPA is a government agency dealing with environmental protection. EPA works with mechatronics and energy students to try and come up with environmental solutions to problems in the community.",
+                     "JP Morgan":"JP Morgan is a financial company that provides banking help to people. JP Morgan helps the AAI business students with knowledge of finance and business.",
+                     "United Airlines":"United Airlines is a airliner company that provides a travel service for people.\n United Airlines works with aerospace studetns to try and provide internship opporutnities for students.",
+                     "Chevron":"Chevron is a oil company and provides AAI first responder students with information on specific fire situations such as oil fires and how to deal with them.",
+                     "Coca-Cola":"Coca-Cola is one of the leading beverage companies in the world; supporting financially the AAI FRC team.",
+                     "National Geographic":"National Geographic is a nature organization, bring value to the natural world\n and also value to the graphic design students by helping them gain internship opportunities through images and competitions.",
+                     "Walmart":"Walmart is a leader in the shopping industry, provding financial support through grants for the AAI FRC team.",
+                     "General Electric":"General Electric is an appliance company specializing in household appliances and also helps the mechatronics students by providing parts for the classroom.",
+                     "Nike":"Nike is a leader in the shoe company that also provides the AAI graphic design students with insite on how Nike does their designs and provides the students with opportunities in internships.",
+                     "Dell":"Dell is a tech company that produces computers for people. Dell also provides a majority of the computer science students\' desktops and laptops.",
+                     "Google":"Google is a data company that focuses on providing the user with a good service. Google also provides the cybersecurity students with a good amount of internship positions and opportunities.",
+                     "Walgreens":"Walgreens is a mini store and pharmaceutical company. They provide AAI healthcare students with knowledge about the pharmaceutical business and provides students with internship opportunities.",
+                     "Lockheed Martin":"Lockheed Martin is an aerospace company specializing in combat planes. they provide the AAI aerospace students with internship and work basd learning opportunities.",
+                     "Chick-fil-a":"Chick-fil-a is a major fast food company and the provide the AAI FRC robotics team with money and financial support.",
+                     "Home Depot":"Home Depot is a hardware warehouse store that provides people with hardware they need. Home Depot also supports the AAI FRC team with hardware for the robot."
                      }
 ############################
 
@@ -102,7 +168,7 @@ cursor = conn.cursor()
   
 
 
-# Creates Sign Up Window and includes all related functions #
+#=# Creates Sign Up Window and includes all related functions #=#
 def sign_up():
 
   sign_up_window = tk.Toplevel()
@@ -112,7 +178,7 @@ def sign_up():
 
 
 
-  # Sees if passwords are the same when asked to re-enter the password #
+  #=# Sees if passwords are the same when asked to re-enter the password #=#
   def sign_up_check():
 
     # compares signup passwords when signup is attempted #
@@ -194,13 +260,13 @@ def sign_up():
   sign_up_window.mainloop()
 
 
-# Clears login entry boxes #
+#=# Clears login entry boxes #=#
 def clear_login_entry():
   user_var_login.set("")
   pass_var_login.set("")
 
 
-# Creates a list of all usernames in the system and returns it #
+#=# Creates a list of all usernames in the system and returns it #=#
 def user_list():
   user_list = []
   cursor.execute("""
@@ -214,7 +280,7 @@ def user_list():
 
 
 
-# tests the signed in users role #
+#=# tests the signed in users role #=#
 def admin_test():
 
   # checks if user exists #
@@ -250,6 +316,7 @@ pe1.place(relx=0.5, rely=0.35, anchor=tk.CENTER)
 lib1 = tk.Button(main, text='Login', command=lambda: [admin_test(), data_window(), clear_login_entry()])
 lib1.place(relx=0.435, rely=0.4)
 lib1_tip = ToolTip(lib1, msg="Logs User In", delay = 1.5)
+
 # sign-up button #
 sub1 = tk.Button(main, text="Sign Up", command=sign_up)
 sub1.place(relx=0.421, rely=0.47)
@@ -274,23 +341,62 @@ def partner_list():
 def data_window():
   
   # provides a small blurb about the company chosen #
-  def info_box():
+  def info_box_window():
     selected_partner = []
     final_partner = []
+    info_window = tk.Toplevel()
+    info_window.title("Partner Info")
+    info_window.geometry("400x300")
+    info_window.configure(bg='powderblue')
+    
+    text_box = tk.Text(info_window, width=40, height=6, wrap=tk.WORD)
+    text_box.place(relx=0.5, rely=0.73, anchor=tk.CENTER)
+    
+    
     #appends all selected users to a list #
     for i in listbox.curselection():
       selected_partner.append(listbox.get(i))
       selected_partner = (selected_partner[0]).split()    
     i = 0
-    while selected_partner[i] != "|":
+    while "-" not in selected_partner[i]:
       final_partner.append(selected_partner[i])
       i += 1
       
     final_partner = ' '.join(final_partner)
-    messagebox.showinfo(final_partner, partner_info_dict[final_partner])
+    
+    text_box.insert(tk.END, partner_info_dict[final_partner])
 
-
-
+    info_win_query = """
+                     SELECT *
+                     FROM FBLA_PROJECT.dbo.partners
+                     WHERE partner_name = (?)
+                     """
+    cursor.execute(info_win_query, (final_partner,))
+    info_win_result = list(cursor.fetchone())
+    
+    
+    image_label = tk.Label(info_window, image=(partner_image_dict[final_partner]))
+    image_label.place(relx=0.2, rely=0.25, anchor=tk.CENTER)
+    purpose_label = tk.Label(info_window, text = "Business Type:", bg="powderblue")
+    purpose_label.place(relx=0.49, rely=0.1, anchor=tk.CENTER)
+    purpose_label_var = tk.Label(info_window, text=info_win_result[1], bg="powderblue")
+    purpose_label_var.place(relx=0.49, rely=0.18, anchor=tk.CENTER)
+    ps_label = tk.Label(info_window, text = "Provides a:", bg="powderblue")
+    ps_label.place(relx=0.75, rely=0.1, anchor=tk.CENTER)
+    ps_label_var = tk.Label(info_window, text=info_win_result[2], bg="powderblue")
+    ps_label_var.place(relx=0.75, rely=0.17, anchor=tk.CENTER)
+    relation_label = tk.Label(info_window, text = "Provides for \nthe school: ", bg="powderblue")
+    relation_label.place(relx=0.48, rely=0.29, anchor=tk.CENTER)
+    relation_label_var = tk.Label(info_window, text=info_win_result[3], bg="powderblue")
+    relation_label_var.place(relx=0.47, rely=0.37, anchor=tk.CENTER)
+    pathway_label = tk.Label(info_window, text = "Main pathway:", bg="powderblue")
+    pathway_label.place(relx=0.78, rely=0.25, anchor=tk.CENTER)
+    pathway_label_var = tk.Label(info_window, text=info_win_result[4], bg="powderblue")
+    pathway_label_var.place(relx=0.78, rely=0.34, anchor=tk.CENTER)
+    contact_label = tk.Label(info_window, text="Contact:", bg="powderblue")
+    contact_label.place(relx=0.46, rely = 0.45, anchor=tk.CENTER)
+    contact_label_var = tk.Label(info_window, text=info_win_result[5], bg="powderblue")
+    contact_label_var.place(relx=0.5, rely=0.51, anchor=tk.CENTER)
   # function puts listbox items in alphabetical order #
   def alphabetical_listbox():
     list_box_var = (list(listbox.get(0, tk.END)))
@@ -532,7 +638,7 @@ def data_window():
     
     for i in range(len(result21)):
       j = list(result21[i])
-      info121 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
+      info121 = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
       listbox.insert(tk.END, info121)
   # function that adds partners into the listbox of partners #
   def add_partner():
@@ -825,7 +931,7 @@ def data_window():
     else:
       listbox.delete(0, tk.END)
       j = list(search_result[0])
-      insert_listbox = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
+      insert_listbox = (j[0] + " | " + j[5])
       listbox.insert(tk.END, insert_listbox)
   
   try:
@@ -847,7 +953,7 @@ def data_window():
       main.withdraw()
       data_window = tk.Toplevel()
       data_window.title("Main Page")
-      data_window.geometry("500x500")
+      data_window.geometry("400x500")
       data_window.configure(bg="steelblue")
       
       # Menu Bar #
@@ -863,7 +969,7 @@ def data_window():
         menu_bar.add_cascade(label="Admin", menu=menu_3)
         
         # runs function that lets you add partners #
-        menu_3.add_command(label="Add Item", command=lambda:[add_window()])
+        menu_3.add_command(label="Add Item", command=lambda:[add_window()], image=plus_image, compound='left')
         
         # runs function that lets you remove partners #
         menu_3.add_command(label="Remove Item", command=lambda:[delete_window()])
@@ -875,7 +981,7 @@ def data_window():
         data_window.config(menu=menu_bar)
 
       # button logs user out and brings back the login page #
-      menu_1.add_command(label="Log Out", command=lambda:[data_window.withdraw(),main.deiconify()])
+      menu_1.add_command(label="Log Out", command=lambda:[data_window.withdraw(),main.deiconify()], image=logout_image, compound="left")
 
       # button sorts list from A-Z #
       menu_4.add_command(label="A-Z", command=lambda: [alphabetical_listbox()])
@@ -929,7 +1035,7 @@ def data_window():
 
 
       # adds cascades onto menu bar #
-      menu_2.add_cascade(label="Filter", menu=filter_menu)
+      menu_2.add_cascade(label="Filter", menu=filter_menu, image=filter_image, compound="left")
       menu_bar.add_cascade(label="Account", menu=menu_1)
       menu_bar.add_cascade(label="Options", menu=menu_2)
       menu_bar.add_cascade(label="Sort", menu = menu_4)
@@ -943,17 +1049,17 @@ def data_window():
 
       # creates search bar and search button #
       search = tk.Entry(data_window, textvariable=search_var)
-      search.place(width=250, relx=0.15, rely=0.1)
+      search.place(width=180, relx=0.12, rely=0.1)
       searchbutton = tk.Button(data_window, command=lambda: [search_for_organization()], text='Search')
-      searchbutton.place(width=60, height=25, relx=0.7, rely=0.095)
+      searchbutton.place(width=60, height=25, relx=0.6, rely=0.095)
 
       # creates more-info button #
-      info_button = tk.Button(data_window, command=lambda: [info_box()], text="More Info")
-      info_button.place(width=70, height=25, relx=0.84, rely=0.095)
+      info_button = tk.Button(data_window, command=lambda: [info_box_window()], text="More Info")
+      info_button.place(width=70, height=25, relx=0.8, rely=0.095)
 
       # configures the listbox for data as well as the scrollbar for it #
       scrollbar = tk.Scrollbar(data_window)
-      listbox = tk.Listbox(data_window, width=70, height=20, selectmode=tk.MULTIPLE)
+      listbox = tk.Listbox(data_window, width=60, height=20, selectmode=tk.SINGLE, justify="left")
       scrollbar.place(relx=0.45, rely=0.5, anchor=tk.CENTER)
       listbox.place(relx=0.50, rely=0.5, anchor=tk.CENTER)
       listbox.config(yscrollcommand = scrollbar.set)
@@ -968,7 +1074,8 @@ def data_window():
       
       for i in range(len(result2)):
         j = list(result2[i])
-        info12 = (j[0] + " | " + j[1] + " | " + j[2] + " | " + j[3] + " | " + j[4] + " | " + j[5])
+        
+        info12 = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
         listbox.insert(tk.END, info12)
 
 
