@@ -39,10 +39,12 @@ first_responders_var = tk.StringVar()
 business_var = tk.StringVar()
 graphic_design_var = tk.StringVar()
 search_var = tk.StringVar()
+
+# menu images #
 filter_image = tk.PhotoImage(file="filter.png")
 plus_image = tk.PhotoImage(file="plus.png")
 logout_image = tk.PhotoImage(file="logout.png")
-####
+# partner images #
 microsoft_image = tk.PhotoImage(file="partner_images/microsoft.png")
 seimens_image = tk.PhotoImage(file="partner_images/seimens.png")
 northside_image = tk.PhotoImage(file="partner_images/northside.png")
@@ -73,6 +75,7 @@ walgreens_image = tk.PhotoImage(file="partner_images/walgreens.png")
 lm_image = tk.PhotoImage(file="partner_images/lm.png")
 chick_image = tk.PhotoImage(file="partner_images/chick.png")
 home_depot_image = tk.PhotoImage(file="partner_images/home_depot.png")
+# functionallity lists and dictionaries #
 filter_ps_list = ['product', 'service']
 filter_ps_dict = {'product':product_var, 'service':service_var}
 filter_purpose_list = ['hardware', 'financial', 'info']
@@ -246,16 +249,19 @@ def sign_up():
   password_label2.place(relx=0.2, rely=0.38, anchor=tk.CENTER)
   password_label3 = tk.Label(sign_up_window, text="Re-Enter", bg="powderblue")
   password_label3.place(relx=0.2, rely=0.56, anchor=tk.CENTER)
+  
   user_entry2 = tk.Entry(sign_up_window, textvariable=user_signup)
   user_entry2.place(relx=0.6, rely=0.2, anchor=tk.CENTER)
-
   pe2 = tk.Entry(sign_up_window, textvariable=(pass1_signup))
   pe2.place(relx=0.6, rely=0.38, anchor=tk.CENTER)
   pe3 = tk.Entry(sign_up_window, textvariable=pass2_signup)
   pe3.place(relx=0.6, rely=0.56, anchor=tk.CENTER)
 
+  # signup button #
   sub2 = tk.Button(sign_up_window, text="Sign Up", command=lambda:[sign_up_check()])
   sub2.place(relx=0.6, rely=0.80, anchor=tk.CENTER)
+  
+  # tool-tip adds add-on help to buttons when hovered over #
   sub2_tip = ToolTip(sub2, msg="Click to sign up", delay = 1.5)
   sign_up_window.mainloop()
 
@@ -295,6 +301,8 @@ def admin_test():
               """
     cursor.execute(query3,(user_var_login.get(),))
     login_result = cursor.fetchone()
+    
+    
     # sets the role of the user in the user_perm variable when logging in #
     user_perm.set((list(login_result))[2])
 
@@ -315,15 +323,17 @@ pe1.place(relx=0.5, rely=0.35, anchor=tk.CENTER)
 # login button #
 lib1 = tk.Button(main, text='Login', command=lambda: [admin_test(), data_window(), clear_login_entry()])
 lib1.place(relx=0.435, rely=0.4)
+# tool-tip adds add-on help to buttons when hovered over #
 lib1_tip = ToolTip(lib1, msg="Logs User In", delay = 1.5)
 
 # sign-up button #
 sub1 = tk.Button(main, text="Sign Up", command=sign_up)
 sub1.place(relx=0.421, rely=0.47)
+# tool-tip adds add-on help to buttons when hovered over #
 sub1_tip = ToolTip(sub1, msg="opens signup \n window", delay = 1.5)
 
 
-# runs a query that locates the names of all the school partners and returns a list #
+#=# runs a query that locates the names of all the school partners and returns a list #=#
 def partner_list():
   partner_list = []
   cursor.execute("""
@@ -337,18 +347,23 @@ def partner_list():
 
 
 
-# window with data and sorting options #
+#=# window with data and sorting options #=#
 def data_window():
   
-  # provides a small blurb about the company chosen #
+  #=# provides a small window about the company chosen #=#
   def info_box_window():
+    
+    # sets lists #
     selected_partner = []
     final_partner = []
+    
+    # window geometry #
     info_window = tk.Toplevel()
     info_window.title("Partner Info")
     info_window.geometry("400x300")
     info_window.configure(bg='powderblue')
     
+    # textbox with small partner description #
     text_box = tk.Text(info_window, width=40, height=6, wrap=tk.WORD)
     text_box.place(relx=0.5, rely=0.73, anchor=tk.CENTER)
     
@@ -357,6 +372,8 @@ def data_window():
     for i in listbox.curselection():
       selected_partner.append(listbox.get(i))
       selected_partner = (selected_partner[0]).split()    
+    
+    # finds partner name based on row selected in listbox #
     i = 0
     while "-" not in selected_partner[i]:
       final_partner.append(selected_partner[i])
@@ -364,8 +381,11 @@ def data_window():
       
     final_partner = ' '.join(final_partner)
     
+    # inserts the small description into the textbox from earlier #
     text_box.insert(tk.END, partner_info_dict[final_partner])
 
+
+    # gathers all partner info data #
     info_win_query = """
                      SELECT *
                      FROM FBLA_PROJECT.dbo.partners
@@ -374,30 +394,34 @@ def data_window():
     cursor.execute(info_win_query, (final_partner,))
     info_win_result = list(cursor.fetchone())
     
-    
+    # provides image of partner logo, and Business type, what they provide #
+    # what their school resource is, pathway, and contact #
     image_label = tk.Label(info_window, image=(partner_image_dict[final_partner]))
     image_label.place(relx=0.2, rely=0.25, anchor=tk.CENTER)
     purpose_label = tk.Label(info_window, text = "Business Type:", bg="powderblue")
-    purpose_label.place(relx=0.49, rely=0.1, anchor=tk.CENTER)
+    purpose_label.place(relx=0.4, rely=0.1, anchor="w")
     purpose_label_var = tk.Label(info_window, text=info_win_result[1], bg="powderblue")
-    purpose_label_var.place(relx=0.49, rely=0.18, anchor=tk.CENTER)
+    purpose_label_var.place(relx=0.4, rely=0.18, anchor="w")
     ps_label = tk.Label(info_window, text = "Provides a:", bg="powderblue")
-    ps_label.place(relx=0.75, rely=0.1, anchor=tk.CENTER)
+    ps_label.place(relx=0.7, rely=0.1, anchor="w")
     ps_label_var = tk.Label(info_window, text=info_win_result[2], bg="powderblue")
-    ps_label_var.place(relx=0.75, rely=0.17, anchor=tk.CENTER)
+    ps_label_var.place(relx=0.7, rely=0.17, anchor="w")
     relation_label = tk.Label(info_window, text = "Provides for \nthe school: ", bg="powderblue")
-    relation_label.place(relx=0.48, rely=0.29, anchor=tk.CENTER)
+    relation_label.place(relx=0.4, rely=0.29, anchor="w")
     relation_label_var = tk.Label(info_window, text=info_win_result[3], bg="powderblue")
-    relation_label_var.place(relx=0.47, rely=0.37, anchor=tk.CENTER)
+    relation_label_var.place(relx=0.4, rely=0.37, anchor="w")
     pathway_label = tk.Label(info_window, text = "Main pathway:", bg="powderblue")
-    pathway_label.place(relx=0.78, rely=0.25, anchor=tk.CENTER)
+    pathway_label.place(relx=0.7, rely=0.25, anchor="w")
     pathway_label_var = tk.Label(info_window, text=info_win_result[4], bg="powderblue")
-    pathway_label_var.place(relx=0.78, rely=0.34, anchor=tk.CENTER)
+    pathway_label_var.place(relx=0.7, rely=0.34, anchor="w")
     contact_label = tk.Label(info_window, text="Contact:", bg="powderblue")
-    contact_label.place(relx=0.46, rely = 0.45, anchor=tk.CENTER)
+    contact_label.place(relx=0.4, rely = 0.45, anchor="w")
     contact_label_var = tk.Label(info_window, text=info_win_result[5], bg="powderblue")
-    contact_label_var.place(relx=0.5, rely=0.51, anchor=tk.CENTER)
-  # function puts listbox items in alphabetical order #
+    contact_label_var.place(relx=0.4, rely=0.51, anchor="w")
+  
+  
+  
+  #=# function puts listbox items in alphabetical order #=#
   def alphabetical_listbox():
     list_box_var = (list(listbox.get(0, tk.END)))
     list_box_var = sorted(list_box_var)
@@ -406,7 +430,7 @@ def data_window():
       listbox.insert(tk.END, i)
   
   
-  # function puts listbox items in reverse alphabetical order #
+  #=# function puts listbox items in reverse alphabetical order #=#
   def realphabetical_listbox():
     list_box_var = (list(listbox.get(0, tk.END)))
     list_box_var = (sorted(list_box_var))[::-1]
@@ -415,12 +439,12 @@ def data_window():
       listbox.insert(tk.END, i)
     
   
-  # pops out a window that shows all users and their roles #
+  #=# pops out a window that shows all users and their roles #=#
   def view_users():
 
 
     
-    # defines a function that lets admin select users from pending list #
+    #=# defines a function that lets admin select users from pending list #=#
     def user_accept():
       selected_users = []
       
@@ -454,7 +478,7 @@ def data_window():
         cursor.execute(accept_user_add_query, (i[0],user_temp_pass_recover[0], "user"))
         cursor.commit()
     
-    # defines a function that changes the users role #
+    #=# defines a function that changes the users role #=#
     def role_change():
       selected_users = []
       
@@ -486,7 +510,7 @@ def data_window():
           conn.commit()
     
     
-    # defines a function that removes 
+    #=# defines a function that removes a user from the users table #
     def remove_user_func():
       selected_users = []
       
@@ -505,7 +529,7 @@ def data_window():
         cursor.execute(delete_query, ((i),))
         cursor.commit()
     
-    # defines a function that denies a user in the pending box #
+    #=# defines a function that denies a user in the pending box #=#
     def deny_user_func():
       selected_users = []
       
@@ -524,7 +548,9 @@ def data_window():
         i = i[0]
         cursor.execute(delete_query, ((i),))
         cursor.commit()
-    # updates the gui textbox list of users #
+    
+    
+    #=# updates the gui textbox list of users #=#
     def user_list_update():
 
       # clears listbox #
@@ -551,13 +577,13 @@ def data_window():
         user_info = (j[0] + " | " + j[2])
         user_listbox1.insert(tk.END, user_info)
     
-    # defines a functiont that updates the listbox for the pending users #
+    #=# defines a functiont that updates the listbox for the pending users #=#
     def update_pending_list():
       
       # clears listbox #
       user_listbox2.delete(0, tk.END)
 
-      #selects all users, starting with admin, so admin appear before regular users #
+      # selects all users, starting with admin, so admin appear before regular users #
       cursor.execute("""
                      SELECT * 
                      FROM FBLA_PROJECT.dbo.pending_users
@@ -601,26 +627,32 @@ def data_window():
     # button to change role of selected user #
     role_change1 = tk.Button(user_window, text="Change Role", command=lambda: [role_change(),user_list_update()])
     role_change1.place(relx=0.2, rely=0.8, anchor=tk.CENTER)
+    # tool-tip adds add-on help to buttons when hovered over #
     role_change_tip = ToolTip(role_change1, msg="Changes the role \n of selected user", delay = 1.5)
+
 
 
     # button to remove user #
     remove_user_b1 = tk.Button(user_window, text="Remove User", command=lambda: [remove_user_func(), user_list_update()])
     remove_user_b1.place(relx=0.4, rely=0.8, anchor=tk.CENTER)
+    # tool-tip adds add-on help to buttons when hovered over #
     remove_user_tip = ToolTip(remove_user_b1, msg="Removes user \n from system", delay = 1.5)
 
     # button to accept user #
     accept_user_b1 = tk.Button(user_window, text="Accept User", command=lambda: [user_accept(), update_pending_list(), user_list_update()])
     accept_user_b1.place(relx=0.6, rely=0.8, anchor=tk.CENTER)
+    # tool-tip adds add-on help to buttons when hovered over #
     accept_user_tip = ToolTip(accept_user_b1, msg="Accpets user from \n request list", delay = 1.5)
+    
     # button to deny user #
     deny_user_b1 = tk.Button(user_window, text="Deny User", command=lambda: [deny_user_func(), update_pending_list()])
     deny_user_b1.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
+    # tool-tip adds add-on help to buttons when hovered over #
     deny_user_tip = ToolTip(deny_user_b1, msg="Denies user from \n request list", delay = 1.5)
 
   
   
-  # updates the listbox of partners #
+  #=# updates the listbox of partners #=#
   def update_listbox():
 
     # clears listbox #
@@ -640,7 +672,8 @@ def data_window():
       j = list(result21[i])
       info121 = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
       listbox.insert(tk.END, info121)
-  # function that adds partners into the listbox of partners #
+  
+  #=# function that adds partners into the listbox of partners #=#
   def add_partner():
 
     # checks whether the partner is in the list already #
@@ -670,7 +703,7 @@ def data_window():
     else:
       messagebox.showerror("Error", "Partner Already In System!")
 
-  # window that pops up whenever adding a partner #
+  #=# window that pops up whenever adding a partner #=#
   def add_window():
 
     # window geometry #
@@ -711,7 +744,7 @@ def data_window():
     new_p_submit_tip = ToolTip(new_p_submit, msg="Adds new partner \n to the list", delay = 1.5)
 
  
-  # delets partner from listbox #
+  #=# delets partner from listbox #=#
   def delete_partner():
 
     # checks if the partner is in the list #
@@ -731,7 +764,7 @@ def data_window():
     else:
       messagebox.showerror("Error", "Partner is not in system!")
 
-  # window where user deletes partners from the database #
+  #=# window where user deletes partners from the database #=#
   def delete_window():
     delete_window = tk.Toplevel()
     delete_window.title("Delete From List")
@@ -746,7 +779,9 @@ def data_window():
     p_del_button = tk.Button(delete_window, text="Delete Partner", command =lambda:[delete_partner(), delete_window.withdraw(),update_listbox()])
     p_del_button.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
     p_del_button_tip = ToolTip(p_del_button, msg="Removes partner \n from list", delay = 1.5)
-  # applies the filter on the data whether it is product or service relation #
+  
+  
+  #=# applies the filter on the data whether it is product or service relation #=#
   def apply_ps_filter():
     temp_filter_list = []
     final_list = []
@@ -786,7 +821,7 @@ def data_window():
     return final_list
 
 
-  # applies filter on partner list based on their purpose to the school #
+  #=# applies filter on partner list based on their purpose to the school #=#
   def apply_purpose_filter():
     temp_filter_list = []
     temp_filter_result = []
@@ -821,6 +856,8 @@ def data_window():
     # returns all of the partners that are refernced by the filter in a list #
     return final_list
 
+
+  #=# function that finds all partners in selected filters based on pathway #=#
   def apply_pathway_filter():
     temp_filter_list = []
     temp_filter_result = []
@@ -852,57 +889,67 @@ def data_window():
           h = list(j)
           filter_listbox_result = (h[0] + " | " + h[1] + " | " + h[2] + " | " + h[3] + " | " + h[4] + " | " + h[5])
           final_list.append(filter_listbox_result)
+    
     # returns all of the partners that are refernced by the filter in a list #
     return final_list
-  # combines the two filter sets to compare and see which partners are in both lists #
+  
+  
+  #=# combines the two filter sets to compare and see which partners are in both lists #=#
   def combine_filter():
-    # redo comments later #
+    
+    # combines all lists if at least on filter is selected from each category #
     if apply_ps_filter() != [] and apply_purpose_filter() != [] and apply_pathway_filter() != []:
         full_list = set(apply_ps_filter()) & set(apply_purpose_filter()) & set(apply_pathway_filter())
         listbox.delete(0, tk.END)
         for i in full_list:
           listbox.insert(tk.END, i)
-    # redo comments later #
+    
+    # combines only the ps_filter and the pathway_filter #
     elif apply_ps_filter() != [] and apply_purpose_filter() == [] and apply_pathway_filter() != []:
       full_list = set(apply_ps_filter()) & set(apply_pathway_filter())
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
-    # redo comments later #
-    elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter() != []:
+    # combines only the purpose_filter and pathway_filter #
+    elif apply_purpose_filter() != [] and apply_ps_filter() == [] and apply_pathway_filter() != []:
       full_list = set(apply_ps_filter()) & set(apply_pathway_filter())
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
     
-    # redo comments later #
+    # combines only the purpose_filter and the ps_filter #
     elif apply_purpose_filter() != [] and apply_ps_filter() != [] and apply_pathway_filter() == []:
       full_list = set(apply_ps_filter()) & set(apply_purpose_filter())
       listbox.delete(0, tk.END)
-
       for i in full_list:
         listbox.insert(tk.END, i) 
-
+    
+    # the final filtered list is the purpose filter #
     elif apply_purpose_filter() != [] and apply_ps_filter() == [] and apply_pathway_filter() == []:
       full_list = apply_purpose_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i) 
+    
+    # the final filtered list is the ps filter #
     elif apply_purpose_filter() == [] and apply_ps_filter() != [] and apply_pathway_filter() == []:
       full_list = apply_ps_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i)
+    
+    # the final filtered list is the pathway filter #
     elif apply_purpose_filter() == [] and apply_ps_filter() == [] and apply_pathway_filter() != []:
       full_list = apply_pathway_filter()
       listbox.delete(0, tk.END)
       for i in full_list:
         listbox.insert(tk.END, i) 
+    # shows error that no filter was selected #
     else:
-      listbox.delete(0, tk.END)
+      messagebox.showerror("Error", "No Filter Selected!")
 
     
-  # function is used to clear the filter checkboxes when the 'clear filter' button is used #
+  #=# function is used to clear the filter checkboxes when the 'clear filter' button is used #=#
   def clear_checkbox():
     product_var.set("False")
     service_var.set("False")
@@ -918,22 +965,35 @@ def data_window():
     business_var.set("False")
     graphic_design_var.set("False")
   
+
+  #=# function is used to search for specific partners #=#
   def search_for_organization():
+    
+    # query for specific partner put into search box #
     searchquery = ("""
                    SELECT *
                    FROM FBLA_PROJECT.dbo.partners
                    WHERE partner_name =(?)
                    """)
     cursor.execute(searchquery, (search_var.get(),))
-    search_result = cursor.fetchall()
-    if search_result == []:
-      update_listbox()
+    search_result1 = cursor.fetchall()
+    
+    # checks whether the entered partner is in the system #
+    if search_var.get() in partner_list():
+      # if the searchbar is empty, full list is returned #
+      if search_result1 == []:
+        update_listbox()
+      # specific partner is found un system and made the only partner listed in listbox #
+      else:
+        listbox.delete(0, tk.END)
+        j = list(search_result1[0])
+        insert_listbox = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
+        listbox.insert(tk.END, insert_listbox)
+    # shows error message box if partner is not in system #
     else:
-      listbox.delete(0, tk.END)
-      j = list(search_result[0])
-      insert_listbox = (j[0] + " | " + j[5])
-      listbox.insert(tk.END, insert_listbox)
+      messagebox.showerror("Error", "Partner is not in system!")
   
+  # trys code to not encounter errors #
   try:
     
     # Gets the password from username in database and compares the result to the password given by user #
