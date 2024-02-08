@@ -5,38 +5,34 @@ Objective
 The main objective of this project is to facilitate the search for organizations by allowing users to filter the results based on different attributes. Users can specify the criteria they are interested in, such as the type of organization, location, industry, size, etc., and the search engine will return relevant results matching those criteria.
 
 Features
-Search Functionality: Users can enter keywords to search for specific organizations.
+Search Functionality: Users can input keywords to search for specific organizations.
 Filtering: Users can apply filters to narrow down search results based on various attributes such as organization type, location, industry, size, etc.
-Dynamic Results: The search engine dynamically updates the results based on the applied filters and search query.
-User-Friendly Interface: The interface is designed to be intuitive and easy to use, allowing users to quickly find the information they are looking for.
+Dynamic Results: The search engine dynamically updates the results based on the applied filters and search queries.
+User-Friendly Interface: The interface is designed to be user-friendly and intuitive, enabling users to quickly find the information they are looking for.
+User Signup: Users can sign up, becoming pending until admin approval.
+Admin Approval: Administrators can accept or deny pending user requests.
+Role Administration: Admins can manage user roles within the system.
+Partner Management: Users can add and delete partner organizations.
 
 Technologies Used
-Python: The backend logic and search algorithms are implemented using Python programming language.
+Python: The backend logic and search algorithms are implemented using Python.
 Tkinter: The graphical user interface (GUI) is developed using Tkinter, a Python library for creating desktop applications.
-SQLite: The organization data is stored and managed using SQLite, a lightweight relational database management system.
+SQL: For data storage and management, SQL (Structured Query Language) is utilized along with SSMS (SQL Server Management Studio).
 
 Installation
 Clone the repository to your local machine:
-bash
-Copy code
 git clone https://github.com/AlexeyPlagov07/FBLA_Project.git
 
 Navigate to the project directory:
-bash
-Copy code
 cd FBLA_Project
 
 Run the application:
-bash
-Copy code
 python main.py
+
 Use the search bar to enter keywords for organizations you want to search for.
-
 Apply filters to narrow down the search results based on specific criteria.
-
 View the dynamically updated search results.
-
-Explore the details of each organization and take necessary actions.
+Explore the details of each organization and use the information as needed.
 
 Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow the standard GitHub flow:
