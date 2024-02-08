@@ -5,14 +5,9 @@ Objective
 The main objective of this project is to facilitate the search for organizations by allowing users to filter the results based on different attributes. Users can use the given filters to sort through what does and doesn't align with what they are looking for, such as the type of organization, location, industry, size, etc., and the search engine will return relevant results matching those criteria.
 
 Features
-Search Functionality: Users can input keywords to search for specific organizations.
-Filtering: Users can apply filters to narrow down search results based on various attributes such as organization type, location, industry, size, etc.
-Dynamic Results: The search engine dynamically updates the results based on the applied filters and search queries.
-User-Friendly Interface: The interface is designed to be user-friendly and intuitive, enabling users to quickly find the information they are looking for.
-User Signup: Users can sign up, becoming pending until admin approval.
-Admin Approval: Administrators can accept or deny pending user requests.
-Role Administration: Admins can manage user roles within the system.
-Partner Management: Users can add and delete partner organizations.
+Search Functionality: Users can input keywords to search for specific organizations, and can apply filters to narrow down search results based on their needs.
+User Signup: Users can create accounts (pending until an admin approves the request.)
+Administration: Admins can manage user roles within the system, approve/deny user sign-up requests, and add/delete/edit partner organizations in the database.
 
 Technologies Used
 Python: The backend logic and search algorithms are implemented using Python.
