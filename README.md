@@ -21,7 +21,9 @@ With account (admin): On top of being able to use the search engine, you can add
 
 ## Installation
 Clone the repository to your local machine:
+```
 git clone https://github.com/AlexeyPlagov07/FBLA_Project.git
+```
 
 Navigate to the project directory:
 ```
@@ -29,7 +31,9 @@ cd FBLA_Project
 ```
 
 Run the application:
+```
 python main.py
+```
 
 Use the search bar to enter keywords for organizations you want to search for.
 Apply filters to narrow down the search results based on specific criteria.
@@ -39,10 +43,10 @@ Explore the details of each organization and use the information as needed.
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow the standard GitHub flow:
 Fork the repository.
-Create a new branch (git checkout -b feature/new-feature).
+Create a new branch (```git checkout -b feature/new-feature```).
 Make your changes.
-Commit your changes (git commit -am 'Add new feature').
-Push to the branch (git push origin feature/new-feature).
+Commit your changes (```git commit -am 'Add new feature'```).
+Push to the branch (```git push origin feature/new-feature```).
 Create a new Pull Request.
 
 ## License
