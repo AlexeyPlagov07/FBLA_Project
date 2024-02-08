@@ -16,8 +16,13 @@ Partner Management: Users can add and delete partner organizations.
 
 Technologies Used
 Python: The backend logic and search algorithms are implemented using Python.
-Tkinter: The graphical user interface (GUI) is developed using Tkinter, a Python library for creating desktop applications.
+Tkinter: GUI is developed using Tkinter, a Python library for creating desktop applications.
 SQL: For data storage and management, SQL (Structured Query Language) is utilized along with SSMS (SQL Server Management Studio).
+
+Usage
+If an account does not exist: Sign up (input username and password/password confirmation.)
+With account (non-admin): Login, then use the filters to narrow the organizations you are looking for, which you can sort from either A-Z or Z-A.
+With account (admin): On top of being able to use the search engine, you can add/remove organization entries and either promote(give an account admin permissions) or demote(remove an account's admin permissions) other accounts. 
 
 Installation
 Clone the repository to your local machine:
