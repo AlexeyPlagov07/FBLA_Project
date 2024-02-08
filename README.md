@@ -1,4 +1,4 @@
-FBLA Project
+# FBLA Project
 A search engine that allows users to sift through various organizations based on varying aspects (what the organization offers, what pathway it relates to, etc.) and sort by alphabetical order to find an organization that aligns with what the user is looking for
 
 Objective
