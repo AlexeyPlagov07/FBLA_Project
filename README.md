@@ -10,7 +10,7 @@ vital for the code and images can be replaced with ones that are needed for the 
 pathway, and whether they provide a product or service. Also includes a A-Z and Z-A sorting feature and advanced security concerning logins and sign-ups. 
 Future features might include timed-logout and editing partner info.
 
-# Project Instalationl and Setup
+# Project Installation and Setup
 For this project, a few libraries are needed to run the software. Before installing libraries, place the python script into a folder and 
 ```
 cd *Folder Name*
