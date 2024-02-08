@@ -42,14 +42,14 @@ graphic_design_var = tk.StringVar()
 search_var = tk.StringVar()
 
 # menu images #
-filter_image = tk.PhotoImage(file="filter.png")
-plus_image = tk.PhotoImage(file="plus.png")
-minus_image = tk.PhotoImage(file="minus.png")
-user_image = tk.PhotoImage(file="people.png")
-search_image = tk.PhotoImage(file="search.png")
-logout_image = tk.PhotoImage(file="logout.png")
-aai_image1 = tk.PhotoImage(file="aai.png")
-aai_image2 = tk.PhotoImage(file="aai2.png")
+filter_image = tk.PhotoImage(file="icons/filter.png")
+plus_image = tk.PhotoImage(file="icons/plus.png")
+minus_image = tk.PhotoImage(file="icons/minus.png")
+user_image = tk.PhotoImage(file="icons/people.png")
+search_image = tk.PhotoImage(file="icons/search.png")
+logout_image = tk.PhotoImage(file="icons/logout.png")
+aai_image1 = tk.PhotoImage(file="icons/aai.png")
+aai_image2 = tk.PhotoImage(file="icons/aai2.png")
 
 # partner images #
 microsoft_image = tk.PhotoImage(file="partner_images/microsoft.png")
@@ -100,7 +100,7 @@ partner_image_dict = {
                       "EPPS Aviation":epps_image, 
                       "American Red Cross":arc_image, 
                       "IBM":ibm_image, 
-                      "BrandyWine Printing":brandy_wine_image, 
+                      "Brandywine Printing":brandy_wine_image, 
                       "Lanier Flight Center":lanier_image, 
                       "Adobe":adobe_image,
                       "3M":MMM_image,
@@ -109,7 +109,7 @@ partner_image_dict = {
                       "JP Morgan":jp_morgan_image,
                       "United Airlines":united_airlines_image,
                       "Chevron":chevron_image,
-                      "Coca-Cola":coke_image,
+                      "Coca Cola":coke_image,
                       "National Geographic":natgeo_image,
                       "Walmart":walmart_image,
                       "General Electric":ge_image,
@@ -118,7 +118,7 @@ partner_image_dict = {
                       "Google":google_image,
                       "Walgreens":walgreens_image,
                       "Lockheed Martin":lm_image,
-                      "Chick-fil-a":chick_image,
+                      "Chick fil a":chick_image,
                       "Home Depot":home_depot_image
                       }
 partner_info_dict = {
@@ -141,7 +141,7 @@ partner_info_dict = {
                      "JP Morgan":"JP Morgan is a financial company that provides banking help to people. JP Morgan helps the AAI business students with knowledge of finance and business.",
                      "United Airlines":"United Airlines is a airliner company that provides a travel service for people.\n United Airlines works with aerospace studetns to try and provide internship opporutnities for students.",
                      "Chevron":"Chevron is a oil company and provides AAI first responder students with information on specific fire situations such as oil fires and how to deal with them.",
-                     "Coca-Cola":"Coca-Cola is one of the leading beverage companies in the world; supporting financially the AAI FRC team.",
+                     "Coca Cola":"Coca-Cola is one of the leading beverage companies in the world; supporting financially the AAI FRC team.",
                      "National Geographic":"National Geographic is a nature organization, bring value to the natural world\n and also value to the graphic design students by helping them gain internship opportunities through images and competitions.",
                      "Walmart":"Walmart is a leader in the shopping industry, provding financial support through grants for the AAI FRC team.",
                      "General Electric":"General Electric is an appliance company specializing in household appliances and also helps the mechatronics students by providing parts for the classroom.",
@@ -150,7 +150,7 @@ partner_info_dict = {
                      "Google":"Google is a data company that focuses on providing the user with a good service. Google also provides the cybersecurity students with a good amount of internship positions and opportunities.",
                      "Walgreens":"Walgreens is a mini store and pharmaceutical company. They provide AAI healthcare students with knowledge about the pharmaceutical business and provides students with internship opportunities.",
                      "Lockheed Martin":"Lockheed Martin is an aerospace company specializing in combat planes. they provide the AAI aerospace students with internship and work basd learning opportunities.",
-                     "Chick-fil-a":"Chick-fil-a is a major fast food company and the provide the AAI FRC robotics team with money and financial support.",
+                     "Chick fil a":"Chick-fil-a is a major fast food company and the provide the AAI FRC robotics team with money and financial support.",
                      "Home Depot":"Home Depot is a hardware warehouse store that provides people with hardware they need. Home Depot also supports the AAI FRC team with hardware for the robot."
                      }
 ############################
@@ -612,8 +612,10 @@ def data_window():
     user_window.geometry("600x300")
     user_window.configure(bg='powderblue')
     user_window.iconphoto(False, aai_image1)
-    u_r_label = tk.Label(user_window, text="User |  Role", bg='powderblue')
-    u_r_label.place(relx=0.25, rely=0.1, anchor=tk.CENTER)
+    u_r_label1 = tk.Label(user_window, text="All Users", bg='powderblue')
+    u_r_label1.place(relx=0.29, rely=0.1, anchor=tk.CENTER)
+    u_r_label2 = tk.Label(user_window, text="All Pending Users", bg='powderblue')
+    u_r_label2.place(relx=0.7, rely=0.1, anchor=tk.CENTER)
     # users listbox #
     user_scrollbar1 = tk.Scrollbar(user_window)
     user_listbox1 = tk.Listbox(user_window, width=30, height=10, selectmode=tk.MULTIPLE)
@@ -990,16 +992,16 @@ def data_window():
     
     # checks whether the entered partner is in the system #
     if search_var.get() in partner_list():
-      # if the searchbar is empty, full list is returned #
-      if search_result1 == []:
-        update_listbox()
+      
       # specific partner is found un system and made the only partner listed in listbox #
-      else:
-        listbox.delete(0, tk.END)
-        j = list(search_result1[0])
-        insert_listbox = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
-        listbox.insert(tk.END, insert_listbox)
+      listbox.delete(0, tk.END)
+      j = list(search_result1[0])
+      insert_listbox = (j[0] + " " + ("-"*(30-(len(j[0])))) + " " + j[5])
+      listbox.insert(tk.END, insert_listbox)
     # shows error message box if partner is not in system #
+    # if the searchbar is empty, full list is returned #
+    elif search_var.get() == "":
+      update_listbox()
     else:
       messagebox.showerror("Error", "Partner is not in system!")
   
@@ -1030,7 +1032,6 @@ def data_window():
       menu_bar = tk.Menu(data_window)
       menu_1 = tk.Menu(menu_bar, tearoff=0)
       menu_2 = tk.Menu(menu_bar, tearoff=0)
-      menu_4 = tk.Menu(menu_bar, tearoff=0)
       # If the user is an admin, an extra menu bar item named 'admin' is added with admin abilites #
       if str(user_perm.get()) == "admin":
         
@@ -1054,13 +1055,12 @@ def data_window():
       menu_1.add_command(label="Log Out", command=lambda:[data_window.withdraw(),main.deiconify()], image=logout_image, compound="left")
 
       # button sorts list from A-Z #
-      menu_4.add_command(label="A-Z", command=lambda: [alphabetical_listbox()])
+      
       
       # button sorts from Z-A #
-      menu_4.add_command(label="Z-A", command=lambda: [realphabetical_listbox()])
       # configures the filter casecade #
       filter_menu = tk.Menu(menu_2, tearoff=0)
-
+      sort_menu = tk.Menu(menu_2, tearoff=0)
       # sections of the filter menu #
       ps_menu = tk.Menu(filter_menu, tearoff=0)
       purpose_menu = tk.Menu(filter_menu, tearoff=0)
@@ -1098,17 +1098,19 @@ def data_window():
         variable=business_var, onvalue='True', offvalue='False')
       pathway_menu.add_checkbutton(label='Graphic Design', 
         variable=graphic_design_var, onvalue='True', offvalue='False')
-      #configures cascades #
+      #configures filter cascades #
       filter_menu.add_cascade(label='Product/Service', menu=ps_menu)
       filter_menu.add_cascade(label='Relation', menu=purpose_menu)
       filter_menu.add_cascade(label='Pathway',menu = pathway_menu )
-
+      # configures sort commands #
+      sort_menu.add_command(label="A-Z", command=lambda: [alphabetical_listbox()])
+      sort_menu.add_command(label="Z-A", command=lambda: [realphabetical_listbox()])
 
       # adds cascades onto menu bar #
       menu_2.add_cascade(label="Filter", menu=filter_menu, image=filter_image, compound="left")
+      menu_2.add_cascade(label="Sort", menu=sort_menu)
       menu_bar.add_cascade(label="Account", menu=menu_1)
       menu_bar.add_cascade(label="Options", menu=menu_2)
-      menu_bar.add_cascade(label="Sort", menu = menu_4)
       # applies the filters that were selected #
       menu_bar.add_command(label="Apply Filter", command =lambda: [combine_filter()])
 
