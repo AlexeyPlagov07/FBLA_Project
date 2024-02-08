@@ -24,7 +24,9 @@ Clone the repository to your local machine:
 git clone https://github.com/AlexeyPlagov07/FBLA_Project.git
 
 Navigate to the project directory:
+```
 cd FBLA_Project
+```
 
 Run the application:
 python main.py
