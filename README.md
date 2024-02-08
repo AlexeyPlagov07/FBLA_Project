@@ -1,8 +1,8 @@
-Organization Search Engine
-This project is a search engine designed to filter organizations based on specified criteria. It provides users with the ability to search for organizations and apply various filters to refine their search results.
+FBLA Project
+A search engine that allows users to sift through various organizations based on varying aspects (what the organization offers, what pathway it relates to, etc.) and sort by alphabetical order to find an organization that aligns with what the user is looking for
 
 Objective
-The main objective of this project is to facilitate the search for organizations by allowing users to filter the results based on different attributes. Users can specify the criteria they are interested in, such as the type of organization, location, industry, size, etc., and the search engine will return relevant results matching those criteria.
+The main objective of this project is to facilitate the search for organizations by allowing users to filter the results based on different attributes. Users can use the given filters to sort through what does and doesn't align with what they are looking for, such as the type of organization, location, industry, size, etc., and the search engine will return relevant results matching those criteria.
 
 Features
 Search Functionality: Users can input keywords to search for specific organizations.
